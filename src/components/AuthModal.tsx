@@ -110,20 +110,8 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       // Always save locally to ensure auth works even if Blob fails
       localStorage.setItem(`user_${emailKey}`, userData);
 
-      if (token) {
-        try {
-          await fetch(`/vercel-blob?pathname=users/${encodeURIComponent(emailKey)}.json`, {
-            method: 'PUT',
-            headers: {
-              authorization: `Bearer ${token}`,
-              'x-api-version': '7',
-            },
-            body: userData
-          });
-        } catch (e) {
-          console.warn("Vercel Blob proxy upload failed, but using local storage fallback.");
-        }
-      }
+      // We removed the Vercel Blob fetch here to prevent 400 Bad Request console errors
+      // since the store is configured as Private.
 
       toast.success("Account created! Welcome to Cryptora.");
       onOpenChange(false);
@@ -149,20 +137,8 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       const emailKey = loginData.email.trim().toLowerCase();
       let found = !!localStorage.getItem(`user_${emailKey}`);
 
-      if (!found && token) {
-        try {
-          const res = await fetch(
-            `/blob-store?prefix=users/${encodeURIComponent(emailKey)}`,
-            { headers: { authorization: `Bearer ${token}` } }
-          );
-          if (res.ok) {
-            const data = await res.json();
-            if (data.blobs && data.blobs.length > 0) found = true;
-          }
-        } catch (e) {
-          console.warn("Vercel Blob fetch failed (likely CORS). Checking local storage.");
-        }
-      }
+      // We removed the Vercel Blob fetch here to prevent 400 Bad Request console errors
+      // since the store is configured as Private.
 
       if (!found) {
         throw new Error("No account found with that email.");
