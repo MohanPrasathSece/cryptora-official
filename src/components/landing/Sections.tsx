@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
+import { motion, useInView, useScroll, useTransform, useSpring } from "motion/react";
 import {
   ArrowRight,
   Sparkles,
@@ -92,8 +92,12 @@ export function TrustBar() {
 
 /* --------------------------------- Overview ------------------------------- */
 export function Overview() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const y = useSpring(useTransform(scrollYProgress, [0, 1], [60, -60]), { stiffness: 60, damping: 20 });
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
   return (
-    <section id="platform" className="py-32 md:py-40">
+    <section id="platform" ref={sectionRef} className="py-32 md:py-40">
       <div className="container-1400 grid md:grid-cols-12 gap-16 items-center">
         <div className="md:col-span-5">
           <Reveal>
@@ -123,7 +127,7 @@ export function Overview() {
         </div>
 
         <div className="md:col-span-7 relative">
-          <Reveal delay={0.2}>
+          <motion.div style={{ y, scale }}>
             <div className="relative">
               <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-br from-[color:var(--accent)]/60 to-transparent blur-2xl" />
               <div className="card-surface relative overflow-hidden p-2">
@@ -131,7 +135,7 @@ export function Overview() {
                   <div className="col-span-2 flex items-end justify-between">
                     <div>
                       <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Workspace</div>
-                      <div className="font-display text-3xl mt-1">Today’s view</div>
+                      <div className="font-display text-3xl mt-1">Today's view</div>
                     </div>
                     <div className="hidden sm:flex items-center gap-2 text-xs text-[color:var(--body)]">
                       <Search size={14} /> Search
@@ -140,7 +144,7 @@ export function Overview() {
                   {[
                     { label: "Positions", v: "12", note: "balanced" },
                     { label: "Signals", v: "4", note: "today" },
-                    { label: "Drawdown", v: "−1.2%", note: "30d" },
+                    { label: "Drawdown", v: "-1.2%", note: "30d" },
                     { label: "Yield", v: "5.8%", note: "stable" },
                   ].map((s) => (
                     <div key={s.label} className="rounded-2xl bg-white hairline p-5">
@@ -152,7 +156,7 @@ export function Overview() {
                 </div>
               </div>
             </div>
-          </Reveal>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -339,6 +343,9 @@ export function Process() {
     { n: "03", t: "Receive AI insights", d: "Daily intelligence, tailored." },
     { n: "04", t: "Track performance", d: "Quiet clarity, every day." },
   ];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start 0.8", "end 0.3"] });
+
   return (
     <section className="py-32 md:py-40 bg-[color:var(--surface)]">
       <div className="container-1400">
@@ -348,19 +355,32 @@ export function Process() {
             Set up in minutes. Refined for years.
           </h2>
         </Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mt-16 relative">
-          <div className="hidden md:block absolute top-12 left-0 right-0 h-px bg-[color:var(--border)]" />
-          {steps.map((s, i) => (
-            <Reveal key={s.n} delay={i * 0.1}>
-              <div className="relative card-surface p-8 h-full">
-                <div className="size-9 grid place-items-center rounded-full bg-[color:var(--background)] hairline text-[11px] tracking-[0.18em]">
-                  {s.n}
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-4 gap-5 mt-16 relative">
+          {/* Animated progress line */}
+          <div className="hidden md:block absolute top-12 left-0 right-0 h-px bg-[color:var(--border)]">
+            <motion.div
+              className="h-full bg-[color:var(--primary)] origin-left"
+              style={{ scaleX: scrollYProgress }}
+            />
+          </div>
+          {steps.map((s, i) => {
+            const start = i / steps.length;
+            const end = (i + 1) / steps.length;
+            const opacity = useTransform(scrollYProgress, [start, start + 0.1, end], [0.4, 1, 1]);
+            const y = useTransform(scrollYProgress, [start, start + 0.15], [30, 0]);
+            const scale = useTransform(scrollYProgress, [start, start + 0.15], [0.96, 1]);
+            return (
+              <motion.div key={s.n} style={{ opacity, y, scale }}>
+                <div className="relative card-surface p-8 h-full">
+                  <div className="size-9 grid place-items-center rounded-full bg-[color:var(--background)] hairline text-[11px] tracking-[0.18em]">
+                    {s.n}
+                  </div>
+                  <div className="font-display text-2xl mt-6">{s.t}</div>
+                  <div className="text-[14px] text-[color:var(--body)] mt-2">{s.d}</div>
                 </div>
-                <div className="font-display text-2xl mt-6">{s.t}</div>
-                <div className="text-[14px] text-[color:var(--body)] mt-2">{s.d}</div>
-              </div>
-            </Reveal>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -414,222 +434,6 @@ export function Metrics() {
             </div>
             <div className="mt-3 text-[13px] uppercase tracking-[0.18em] text-[color:var(--body)]">
               {m.l}
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------- Why choose us ------------------------------- */
-export function WhyUs() {
-  const items = [
-    { t: "Minimal Interface", d: "A calm surface that gets out of your way." },
-    { t: "AI Intelligence", d: "Smart, transparent, always explainable." },
-    { t: "Enterprise Security", d: "Independently audited and continuously tested." },
-    { t: "Continuous Innovation", d: "A platform that improves quietly, every week." },
-  ];
-  return (
-    <section className="py-32 md:py-40">
-      <div className="container-1400 grid md:grid-cols-12 gap-16">
-        <div className="md:col-span-5">
-          <Reveal>
-            <Eyebrow>Why Crypto AI</Eyebrow>
-            <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
-              Technology designed around <em className="italic text-[color:var(--primary)]">human</em> decisions.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="text-[17px] text-[color:var(--body)] mt-8 max-w-md">
-              We believe finance should feel less like a cockpit and more like a quiet
-              studio. Crypto AI brings the tools forward only when you need them.
-            </p>
-          </Reveal>
-        </div>
-        <div className="md:col-span-7 grid sm:grid-cols-2 gap-5">
-          {items.map((it, i) => (
-            <Reveal key={it.t} delay={i * 0.08}>
-              <div className="card-surface p-7 h-full transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
-                <TrendingUp size={18} className="text-[color:var(--primary)]" />
-                <div className="font-display text-2xl mt-5">{it.t}</div>
-                <div className="text-[14px] text-[color:var(--body)] mt-2">{it.d}</div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* --------------------------------- Showcase ------------------------------- */
-export function Showcase() {
-  return (
-    <section className="py-32 md:py-40 bg-[color:var(--surface)] overflow-hidden">
-      <div className="container-1400">
-        <Reveal className="text-center max-w-2xl mx-auto">
-          <Eyebrow>Designed for clarity</Eyebrow>
-          <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
-            One surface for everything that matters.
-          </h2>
-          <p className="text-[17px] text-[color:var(--body)] mt-6">
-            A single, beautifully composed workspace - for research, automation and reflection.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.15}>
-          <div className="relative mt-20 mx-auto max-w-5xl">
-            <div className="absolute -inset-10 rounded-[80px] bg-gradient-to-br from-[color:var(--primary-soft)]/20 to-transparent blur-3xl" />
-            {/* laptop */}
-            <div className="relative rounded-t-[28px] bg-[color:var(--foreground)] p-3 shadow-[var(--shadow-float)]">
-              <div className="rounded-[20px] overflow-hidden bg-[color:var(--background)] aspect-[16/10] grid grid-cols-12">
-                <aside className="col-span-3 bg-[color:var(--surface)] p-5 border-r border-[color:var(--border-soft)] hidden sm:block">
-                  <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Workspace</div>
-                  <div className="mt-4 space-y-2 text-[13px]">
-                    {["Overview", "Research", "Strategies", "Automation", "Reports"].map((t, i) => (
-                      <div
-                        key={t}
-                        className={`px-3 py-2 rounded-lg ${i === 0 ? "bg-white hairline" : "text-[color:var(--body)]"}`}
-                      >
-                        {t}
-                      </div>
-                    ))}
-                  </div>
-                </aside>
-                <div className="col-span-12 sm:col-span-9 p-6">
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Overview</div>
-                      <div className="font-display text-3xl mt-1">Portfolio</div>
-                    </div>
-                    <div className="text-xs text-[color:var(--body)]">Last 30 days</div>
-                  </div>
-                  <div className="grid grid-cols-3 gap-3 mt-5">
-                    {[
-                      { l: "Value", v: "$248.9k", c: "+2.4%" },
-                      { l: "Volatility", v: "Low", c: "stable" },
-                      { l: "Yield", v: "5.8%", c: "+0.4%" },
-                    ].map((s) => (
-                      <div key={s.l} className="rounded-xl hairline p-4 bg-white">
-                        <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">{s.l}</div>
-                        <div className="font-display text-2xl mt-1.5">{s.v}</div>
-                        <div className="text-xs text-[color:var(--primary)] mt-0.5">{s.c}</div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-5 rounded-xl hairline bg-white p-4">
-                    <svg viewBox="0 0 400 100" className="w-full h-24">
-                      <defs>
-                        <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
-                          <stop offset="0%" stopColor="#3F7F73" stopOpacity="0.2" />
-                          <stop offset="100%" stopColor="#3F7F73" stopOpacity="0" />
-                        </linearGradient>
-                      </defs>
-                      <path
-                        d="M0,70 C40,60 70,40 110,45 C150,50 180,80 220,60 C260,40 290,15 340,25 C380,33 390,50 400,40 L400,100 L0,100 Z"
-                        fill="url(#g2)"
-                      />
-                      <path
-                        d="M0,70 C40,60 70,40 110,45 C150,50 180,80 220,60 C260,40 290,15 340,25 C380,33 390,50 400,40"
-                        fill="none"
-                        stroke="#3F7F73"
-                        strokeWidth="1.5"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="h-3 bg-[color:var(--foreground)] rounded-b-3xl mx-12" />
-            <div className="h-1 bg-[color:var(--foreground)]/60 rounded-b-full mx-32" />
-
-            {/* floating cards */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.3 }}
-              className="hidden md:block absolute -left-8 top-1/3 card-surface p-4 w-56 animate-float-y"
-            >
-              <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Notification</div>
-              <div className="text-[13px] mt-2">Yield strategy beat benchmark by +1.8%</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.5 }}
-              className="hidden md:block absolute -right-6 bottom-16 card-surface p-4 w-60 animate-float-x"
-            >
-              <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">
-                <Bell size={12} /> Insight
-              </div>
-              <div className="text-[13px] mt-2">Volatility easing - consider longer horizons.</div>
-            </motion.div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------ Testimonials ------------------------------ */
-export function Testimonials() {
-  const items = [
-    {
-      q: "Crypto AI feels like the first finance product that respects my attention.",
-      n: "Mira Halvorsen",
-      r: "Portfolio analyst",
-    },
-    {
-      q: "The clarity is the feature. I can finally hear what my portfolio is telling me.",
-      n: "Daniel Cho",
-      r: "Founder, Northwind",
-    },
-    {
-      q: "It’s the calmest piece of software I use, and the most informative.",
-      n: "Inés García",
-      r: "Independent investor",
-    },
-  ];
-  return (
-    <section className="py-32 md:py-40">
-      <div className="container-1400">
-        <Reveal>
-          <Eyebrow>Voices</Eyebrow>
-          <h2 className="font-display text-4xl md:text-5xl mt-6 max-w-2xl text-balance">
-            Trusted by people who value craft.
-          </h2>
-        </Reveal>
-        <div className="grid md:grid-cols-3 gap-5 mt-16">
-          {items.map((t, i) => (
-            <Reveal key={t.n} delay={i * 0.08}>
-              <figure className="card-surface p-8 h-full flex flex-col transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
-                <blockquote className="font-display text-2xl leading-snug text-balance">
-                  “{t.q}”
-                </blockquote>
-                <figcaption className="mt-auto pt-10 flex items-center gap-3">
-                  <span className="size-10 rounded-full bg-[color:var(--accent)] grid place-items-center text-[color:var(--primary)] text-sm font-medium">
-                    {t.n[0]}
-                  </span>
-                  <span>
-                    <div className="text-sm">{t.n}</div>
-                    <div className="text-xs text-[color:var(--body)]">{t.r}</div>
-                  </span>
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------- FAQ ----------------------------------- */
-export function FAQ() {
-  const items = [
     { q: "How does AI assist analysis?", a: "Crypto AI blends market, on-chain and macro data to produce explainable signals. You always see the reasoning behind a suggestion - and stay in control of every action." },
     { q: "Is the platform beginner friendly?", a: "Yes. The interface is designed to surface only what you need. Plain-language explanations sit beside every chart, signal and metric." },
     { q: "How is security handled?", a: "Independent audits, hardware-grade key management and least-privilege access by default. You can revoke any session in one click." },

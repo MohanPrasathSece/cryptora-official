@@ -26,7 +26,7 @@ export function MacbookCandlestick() {
         const lastCandle = newCandles[newCandles.length - 1];
         
         // Either update the last candle or add a new one
-        if (Math.random() > 0.8) {
+        if (Math.random() > 0.5) {
           // Add new candle
           const change = (Math.random() - 0.5) * 8;
           const open = lastCandle.close;
@@ -46,7 +46,7 @@ export function MacbookCandlestick() {
         
         return newCandles;
       });
-    }, 1000);
+    }, 300);
 
     return () => clearInterval(interval);
   }, []);

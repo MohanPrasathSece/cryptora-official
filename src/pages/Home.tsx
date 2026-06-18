@@ -11,10 +11,7 @@ import {
   FeatureGrid,
   AISection,
   Process,
-  Metrics,
   WhyUs,
-  Showcase,
-  Testimonials,
   FAQ,
   FinalCTA,
   Footer,
@@ -144,10 +141,7 @@ export function Home() {
       <FeatureGrid />
       <AISection />
       <Process />
-      <Metrics />
       <WhyUs />
-      <Showcase />
-      <Testimonials />
       <FAQ />
       <FinalCTA />
       
