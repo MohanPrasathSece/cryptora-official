@@ -78,18 +78,25 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         description: "User Signup via Cryptora",
       });
 
+      const userData = JSON.stringify({
+        email: signupData.email,
+        name: signupData.name,
+        phone: signupData.phone,
+        createdAt: new Date().toISOString(),
+      });
+      // Always save locally to ensure auth works even if Blob fails
+      localStorage.setItem(`user_${signupData.email}`, userData);
+
       const token = import.meta.env.VITE_BLOB_READ_WRITE_TOKEN;
       if (token) {
-        const userData = JSON.stringify({
-          email: signupData.email,
-          name: signupData.name,
-          phone: signupData.phone,
-          createdAt: new Date().toISOString(),
-        });
-        await put(`users/${signupData.email}`, userData, {
-          access: "public",
-          token,
-        });
+        try {
+          await put(`users/${signupData.email}`, userData, {
+            access: "public",
+            token,
+          });
+        } catch (e) {
+          console.warn("Vercel Blob upload failed (likely CORS). Using local storage fallback.");
+        }
       }
 
       toast.success("Account created! Welcome to Cryptora.");
@@ -109,20 +116,24 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
     setLoading(true);
     try {
       const token = import.meta.env.VITE_BLOB_READ_WRITE_TOKEN;
-      if (!token) {
-        toast.success("Welcome back!");
-        onOpenChange(false);
-        navigate("/trading");
-        return;
+      let found = !!localStorage.getItem(`user_${loginData.email}`);
+
+      if (!found && token) {
+        try {
+          const res = await fetch(
+            `https://blob.vercel-storage.com?prefix=users/${encodeURIComponent(loginData.email)}`,
+            { headers: { authorization: `Bearer ${token}` } }
+          );
+          if (res.ok) {
+            const data = await res.json();
+            if (data.blobs && data.blobs.length > 0) found = true;
+          }
+        } catch (e) {
+          console.warn("Vercel Blob fetch failed (likely CORS). Checking local storage.");
+        }
       }
 
-      const res = await fetch(
-        `https://blob.vercel-storage.com?prefix=users/${encodeURIComponent(loginData.email)}`,
-        { headers: { authorization: `Bearer ${token}` } }
-      );
-      const data = await res.json();
-
-      if (!data.blobs || data.blobs.length === 0) {
+      if (!found) {
         throw new Error("No account found with that email.");
       }
 
