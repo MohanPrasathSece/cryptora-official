@@ -149,7 +149,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px] sm:h-[480px] p-0 overflow-hidden rounded-3xl border border-[color:var(--border-soft)] bg-[color:var(--background)] shadow-xl text-center flex flex-col">
+      <DialogContent className="sm:max-w-[440px] p-0 overflow-hidden rounded-3xl border border-[color:var(--border-soft)] bg-[color:var(--background)] shadow-xl text-center">
 
         {/* Header */}
         <div className="pt-8 pb-2 px-8 flex flex-col items-center">
@@ -165,7 +165,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         </div>
 
         {/* Tab switcher */}
-        <div className="flex mx-8 mb-0 mt-2 bg-[color:var(--surface)] p-1 rounded-lg shrink-0">
+        <div className="flex mx-8 mb-2 mt-5 bg-[color:var(--surface)] p-1 rounded-lg">
           {(["signup", "login"] as Tab[]).map(t => (
             <button key={t} onClick={() => switchTab(t)}
               className={`flex-1 py-2 text-[13px] font-medium rounded-md transition-all ${
@@ -178,7 +178,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
           ))}
         </div>
 
-        <div className="px-8 pb-8 flex-1 flex flex-col justify-center">
+        <div className="px-8 pb-8 space-y-5">
           {/* Error banner */}
           {error && (
             <div className="rounded-lg border border-red-200 bg-red-50 p-2.5 flex items-start gap-2 text-left">
@@ -188,7 +188,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
           )}
 
           {tab === "signup" ? (
-            <form onSubmit={handleSignup} className="space-y-4 w-full">
+            <form onSubmit={handleSignup} className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <InputField id="su_name" label="Full Name" placeholder="John Doe"
                   value={signupData.name} onChange={onSignupChange} />
@@ -206,7 +206,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
               </button>
             </form>
           ) : (
-            <form onSubmit={handleLogin} className="space-y-4 w-full">
+            <form onSubmit={handleLogin} className="space-y-4">
               <InputField id="li_email" label="Email" type="email" placeholder="john@example.com"
                 value={loginData.email} onChange={onLoginChange} />
               <InputField id="li_password" label="Password" type="password" placeholder="Your password"
@@ -219,7 +219,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
             </form>
           )}
 
-          <div className="mt-auto pt-4">
+          <div className="pt-2">
             <p className="text-[11px] text-[color:var(--body)] leading-tight px-2">
               By continuing, you agree to our <a href="/terms" className="underline hover:text-[color:var(--foreground)]">Terms</a> and <a href="/privacy" className="underline hover:text-[color:var(--foreground)]">Privacy Policy</a>.
             </p>
