@@ -59,10 +59,18 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (location.pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    if (isLoggedIn) {
+      if (location.pathname === "/trading") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        navigate("/trading");
+      }
     } else {
-      navigate("/");
+      if (location.pathname === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        navigate("/");
+      }
     }
   };
 
