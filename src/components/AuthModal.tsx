@@ -86,10 +86,9 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
           phone: signupData.phone,
           createdAt: new Date().toISOString(),
         });
-        await put(`users/${signupData.email}.json`, userData, {
+        await put(`users/${signupData.email}`, userData, {
           access: "public",
           token,
-          addRandomSuffix: false,
         });
       }
 
@@ -118,7 +117,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       }
 
       const res = await fetch(
-        `https://blob.vercel-storage.com?prefix=users/${encodeURIComponent(loginData.email)}.json`,
+        `https://blob.vercel-storage.com?prefix=users/${encodeURIComponent(loginData.email)}`,
         { headers: { authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
@@ -148,7 +147,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
         {/* Header */}
         <div className="pt-8 pb-2 px-8 flex flex-col items-center">
-          <img src="/logo.png" alt="Cryptora" className="size-12 rounded-xl object-cover mb-4" />
+          <img src="/logo.png" alt="Cryptora" className="h-10 w-auto object-contain mb-4" />
           <DialogTitle className="font-display text-2xl tracking-tight">
             {tab === "signup" ? "Create an account" : "Welcome back"}
           </DialogTitle>
