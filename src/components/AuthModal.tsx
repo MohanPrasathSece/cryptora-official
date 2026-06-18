@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { createLead } from "@/lib/crm";
 import { toast } from "sonner";
-import { Loader2, ShieldAlert, Eye, EyeOff, CheckCircle2, XCircle } from "lucide-react";
+import { Loader2, Eye, EyeOff, XCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { put } from "@vercel/blob";
 
@@ -14,17 +14,17 @@ interface AuthModalProps {
 type Tab = "login" | "signup";
 
 function InputField({
-  id, label, type = "text", placeholder, value, onChange, required = true, hint
+  id, label, type = "text", placeholder, value, onChange, required = true
 }: {
   id: string; label: string; type?: string; placeholder: string;
   value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean; hint?: string;
+  required?: boolean;
 }) {
   const [showPw, setShowPw] = useState(false);
   const isPassword = type === "password";
   return (
-    <div className="space-y-1.5">
-      <label htmlFor={id} className="text-[13px] font-medium text-[color:var(--foreground)]">
+    <div className="space-y-1.5 text-left">
+      <label htmlFor={id} className="text-[12px] font-medium text-[color:var(--foreground)]">
         {label}{!required && <span className="text-[color:var(--body)] ml-1">(optional)</span>}
       </label>
       <div className="relative">
@@ -35,28 +35,15 @@ function InputField({
           onChange={onChange}
           required={required}
           placeholder={placeholder}
-          className="w-full h-11 px-3 rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] text-[14px] focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)]/30 focus:border-[color:var(--primary)] transition-all pr-10"
+          className="w-full h-10 px-3 rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] text-[13px] focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)]/30 focus:border-[color:var(--primary)] transition-all pr-10"
         />
         {isPassword && (
           <button type="button" onClick={() => setShowPw(p => !p)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors">
-            {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
+            {showPw ? <EyeOff size={14} /> : <Eye size={14} />}
           </button>
         )}
       </div>
-      {hint && <p className="text-[11px] text-[color:var(--body)]">{hint}</p>}
-    </div>
-  );
-}
-
-function RiskWarning() {
-  return (
-    <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 flex gap-2.5 mt-1">
-      <ShieldAlert size={15} className="text-amber-600 shrink-0 mt-0.5" />
-      <p className="text-[11px] text-amber-700 leading-relaxed">
-        <strong>Risk Warning:</strong> Crypto assets are highly volatile. You may lose some or all of your investment.
-        Only invest what you can afford to lose. Past performance is not indicative of future results.
-      </p>
     </div>
   );
 }
@@ -101,7 +88,6 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
           email: signupData.email,
           name: signupData.name,
           phone: signupData.phone,
-          // Store a hash hint only — never plaintext password in blob
           passwordHint: btoa(signupData.password).slice(0, 8),
           createdAt: new Date().toISOString(),
         });
@@ -163,31 +149,28 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[440px] p-0 overflow-hidden rounded-2xl border border-[color:var(--border-soft)] bg-[color:var(--background)] shadow-[var(--shadow-float)]">
+      <DialogContent className="sm:max-w-[360px] p-0 overflow-hidden rounded-2xl border border-[color:var(--border-soft)] bg-[color:var(--background)] shadow-xl text-center">
 
         {/* Header */}
-        <div className="px-7 pt-7 pb-5 border-b border-[color:var(--border-soft)]">
-          <div className="flex items-center gap-2.5 mb-4">
-            <img src="/logo.png" alt="Crypto AI" className="size-8 rounded-xl object-cover" />
-            <span className="font-display text-[18px] tracking-tight">Crypto AI</span>
-          </div>
-          <DialogTitle className="font-display text-2xl">
-            {tab === "signup" ? "Create your account" : "Welcome back"}
+        <div className="pt-8 pb-2 px-6 flex flex-col items-center">
+          <img src="/logo.png" alt="Crypto AI" className="size-10 rounded-xl object-cover mb-4" />
+          <DialogTitle className="font-display text-xl tracking-tight">
+            {tab === "signup" ? "Create an account" : "Welcome back"}
           </DialogTitle>
-          <DialogDescription className="text-[13px] text-[color:var(--body)] mt-1">
+          <DialogDescription className="text-[13px] text-[color:var(--body)] mt-1.5">
             {tab === "signup"
-              ? "Start trading smarter with AI-powered intelligence."
-              : "Sign in to your Crypto AI account."}
+              ? "Start trading smarter today."
+              : "Sign in to your account."}
           </DialogDescription>
         </div>
 
         {/* Tab switcher */}
-        <div className="flex border-b border-[color:var(--border-soft)]">
+        <div className="flex mx-6 mb-2 mt-4 bg-[color:var(--surface)] p-1 rounded-lg">
           {(["signup", "login"] as Tab[]).map(t => (
             <button key={t} onClick={() => switchTab(t)}
-              className={`flex-1 py-3 text-[13px] font-medium transition-colors ${
+              className={`flex-1 py-1.5 text-[12px] font-medium rounded-md transition-all ${
                 tab === t
-                  ? "border-b-2 border-[color:var(--primary)] text-[color:var(--foreground)]"
+                  ? "bg-white text-[color:var(--foreground)] shadow-sm"
                   : "text-[color:var(--body)] hover:text-[color:var(--foreground)]"
               }`}>
               {t === "signup" ? "Sign Up" : "Log In"}
@@ -195,17 +178,17 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
           ))}
         </div>
 
-        <div className="px-7 py-6 space-y-4">
+        <div className="px-6 pb-8 space-y-4">
           {/* Error banner */}
           {error && (
-            <div className="rounded-xl border border-red-200 bg-red-50 p-3 flex items-start gap-2">
-              <XCircle size={15} className="text-red-500 shrink-0 mt-0.5" />
-              <p className="text-[12px] text-red-700">{error}</p>
+            <div className="rounded-lg border border-red-200 bg-red-50 p-2.5 flex items-start gap-2 text-left">
+              <XCircle size={14} className="text-red-500 shrink-0 mt-0.5" />
+              <p className="text-[11.5px] text-red-700 leading-tight">{error}</p>
             </div>
           )}
 
           {tab === "signup" ? (
-            <form onSubmit={handleSignup} className="space-y-4">
+            <form onSubmit={handleSignup} className="space-y-3.5 mt-2">
               <InputField id="su_name" label="Full Name" placeholder="John Doe"
                 value={signupData.name} onChange={onSignupChange} />
               <InputField id="su_email" label="Email" type="email" placeholder="john@example.com"
@@ -213,49 +196,30 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
               <InputField id="su_phone" label="Phone Number" type="tel" placeholder="+1 234 567 8900"
                 value={signupData.phone} onChange={onSignupChange} />
               <InputField id="su_password" label="Password" type="password" placeholder="Min 8 characters"
-                value={signupData.password} onChange={onSignupChange}
-                hint="Use at least 8 characters with letters and numbers." />
-
-              <RiskWarning />
-
-              <div className="flex items-start gap-2 pt-1">
-                <CheckCircle2 size={13} className="text-[color:var(--primary)] shrink-0 mt-0.5" />
-                <p className="text-[11px] text-[color:var(--body)]">
-                  By signing up you agree to our{" "}
-                  <a href="/terms" target="_blank" className="text-[color:var(--primary)] underline underline-offset-2">Terms</a>{" "}
-                  and{" "}
-                  <a href="/privacy" target="_blank" className="text-[color:var(--primary)] underline underline-offset-2">Privacy Policy</a>.
-                </p>
-              </div>
+                value={signupData.password} onChange={onSignupChange} />
 
               <button type="submit" disabled={loading}
-                className="w-full h-12 rounded-xl bg-[color:var(--foreground)] text-white text-[14px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-2">
-                {loading ? <Loader2 className="size-5 animate-spin" /> : "Create Account"}
+                className="w-full h-10 rounded-lg bg-[color:var(--foreground)] text-white text-[13px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-4">
+                {loading ? <Loader2 className="size-4 animate-spin" /> : "Create Account"}
               </button>
             </form>
           ) : (
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-3.5 mt-2">
               <InputField id="li_email" label="Email" type="email" placeholder="john@example.com"
                 value={loginData.email} onChange={onLoginChange} />
               <InputField id="li_password" label="Password" type="password" placeholder="Your password"
                 value={loginData.password} onChange={onLoginChange} />
 
-              <RiskWarning />
-
               <button type="submit" disabled={loading}
-                className="w-full h-12 rounded-xl bg-[color:var(--foreground)] text-white text-[14px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-2">
-                {loading ? <Loader2 className="size-5 animate-spin" /> : "Sign In"}
+                className="w-full h-10 rounded-lg bg-[color:var(--foreground)] text-white text-[13px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-4">
+                {loading ? <Loader2 className="size-4 animate-spin" /> : "Sign In"}
               </button>
-
-              <p className="text-center text-[12px] text-[color:var(--body)]">
-                Don't have an account?{" "}
-                <button type="button" onClick={() => switchTab("signup")}
-                  className="text-[color:var(--primary)] font-medium hover:underline">
-                  Sign up free
-                </button>
-              </p>
             </form>
           )}
+
+          <p className="text-[11px] text-[color:var(--body)] pt-2 leading-tight px-2">
+            By continuing, you agree to our <a href="/terms" className="underline hover:text-[color:var(--foreground)]">Terms</a> and <a href="/privacy" className="underline hover:text-[color:var(--foreground)]">Privacy Policy</a>.
+          </p>
         </div>
       </DialogContent>
     </Dialog>
