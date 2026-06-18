@@ -34,6 +34,13 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
+              onClick={(e) => {
+                const target = document.getElementById(l.toLowerCase());
+                if (target) {
+                  e.preventDefault();
+                  target.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               className="text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors"
             >
               {l}

@@ -58,7 +58,7 @@ function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
             <span className="text-[color:var(--body)]">Now live · Crypto AI AI 2.0</span>
           </motion.div>
 
-          <h1 className="font-display text-[48px] sm:text-[60px] md:text-[72px] leading-[0.98] tracking-[-0.04em] mt-8">
+          <h1 className="font-display text-[56px] sm:text-[72px] md:text-[88px] leading-[0.95] tracking-[-0.04em] mt-8">
             <div>
               {line1.map((w, i) => (
                 <HeadlineWord key={i} delay={0.4 + i * 0.07}>
@@ -152,7 +152,7 @@ export function Home() {
       <FinalCTA />
       
       {/* Contact Form Section */}
-      <section className="py-24 bg-white/5 relative z-10">
+      <section id="contact" className="py-24 bg-white/5 relative z-10">
         <div className="container-1400">
           <ContactForm />
         </div>
