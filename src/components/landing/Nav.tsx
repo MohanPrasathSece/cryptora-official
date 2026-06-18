@@ -4,8 +4,21 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
   const [scrolled, setScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    let loggedIn = false;
+    for (let i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i)?.startsWith("user_")) {
+        loggedIn = true;
+        break;
+      }
+    }
+    // Also consider them logged in if they are on /trading just in case
+    setIsLoggedIn(loggedIn || location.pathname === "/trading");
+  }, [location.pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -69,7 +82,7 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
           <img src="/logo.png" alt="Cryptora Logo" className="h-9 w-auto object-contain" />
         </a>
 
-        {location.pathname !== "/trading" ? (
+        {!isLoggedIn ? (
           <>
             <nav className="hidden md:flex items-center gap-9">
               {links.map((l) => (
@@ -104,6 +117,13 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
             <button
               onClick={() => {
                 // simple logout
+                for (let i = localStorage.length - 1; i >= 0; i--) {
+                  const key = localStorage.key(i);
+                  if (key?.startsWith("user_")) {
+                    localStorage.removeItem(key);
+                  }
+                }
+                setIsLoggedIn(false);
                 navigate("/");
               }}
               className="inline-flex items-center h-10 px-5 rounded-full bg-[color:var(--surface)] text-[color:var(--foreground)] text-[13px] font-medium transition-all hover:bg-[color:var(--border-soft)] cursor-pointer"
