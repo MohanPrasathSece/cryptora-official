@@ -391,60 +391,6 @@ export function Process() {
   );
 }
 
-/* --------------------------------- Metrics -------------------------------- */
-function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string; prefix?: string }) {
-  const [val, setVal] = useState(0);
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const inView = useInView(ref, { once: true });
-  useEffect(() => {
-    if (!inView) return;
-    const dur = 1800;
-    const start = performance.now();
-    let raf = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / dur);
-      const eased = 1 - Math.pow(1 - p, 4);
-      setVal(to * eased);
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, to]);
-  const formatted =
-    to >= 1000 ? Math.round(val).toLocaleString() : val.toFixed(to % 1 ? 1 : 0);
-  return (
-    <span ref={ref}>
-      {prefix}
-      {formatted}
-      {suffix}
-    </span>
-  );
-}
-
-export function Metrics() {
-  const items = [
-    { v: 12, prefix: "$", suffix: "B+", l: "Assets analysed" },
-    { v: 250, suffix: "K+", l: "Research sessions" },
-    { v: 98, suffix: "%", l: "Customer satisfaction" },
-    { v: 24, suffix: "/7", l: "Platform monitoring" },
-  ];
-  return (
-    <section className="py-28 md:py-36">
-      <div className="container-1400 grid grid-cols-2 md:grid-cols-4 gap-y-14 gap-x-10">
-        {items.map((m, i) => (
-          <Reveal key={m.l} delay={i * 0.08} className="text-center md:text-left">
-            <div className="font-display text-4xl md:text-5xl">
-              <Counter to={m.v} prefix={m.prefix} suffix={m.suffix} />
-            </div>
-            <div className="mt-3 text-[13px] uppercase tracking-[0.18em] text-[color:var(--body)]">
-              {m.l}
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 /* ---------------------------- Why choose us ------------------------------- */
 export function WhyUs() {

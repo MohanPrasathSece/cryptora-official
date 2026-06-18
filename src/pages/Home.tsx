@@ -55,7 +55,7 @@ function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
             <span className="text-[color:var(--body)]">Now live · Cryptora AI 2.0</span>
           </motion.div>
 
-          <h1 className="font-display text-[56px] sm:text-[72px] md:text-[88px] leading-[0.95] tracking-[-0.04em] mt-8">
+          <h1 className="font-display text-[44px] sm:text-[56px] md:text-[68px] leading-[1] tracking-[-0.03em] mt-8">
             <div>
               {line1.map((w, i) => (
                 <HeadlineWord key={i} delay={0.4 + i * 0.07}>
