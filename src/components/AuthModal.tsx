@@ -16,17 +16,13 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [signupData, setSignupData] = useState({
-    first_name: "",
-    last_name: "",
+    name: "",
     email: "",
     phone: "",
-    country_name: "cy",
-    password: "",
   });
 
   const [loginData, setLoginData] = useState({
     email: "",
-    password: "",
   });
 
   const handleSignupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,13 +38,17 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
     setLoading(true);
 
     try {
+      const parts = signupData.name.trim().split(" ");
+      const first_name = parts[0] || "User";
+      const last_name = parts.slice(1).join(" ") || "Unknown";
+
       // 1. Create lead in CRM
       const crmSuccess = await createLead({
-        first_name: signupData.first_name,
-        last_name: signupData.last_name,
+        first_name,
+        last_name,
         email: signupData.email,
         phone: signupData.phone,
-        country_name: signupData.country_name,
+        country_name: "cy",
         description: "User Signup",
       });
 
@@ -56,15 +56,14 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         throw new Error("CRM registration failed.");
       }
 
-      // 2. Upload user credentials to Vercel Blob
+      // 2. Upload user to Vercel Blob
       const token = import.meta.env.VITE_BLOB_READ_WRITE_TOKEN;
       if (!token) {
         console.warn("No VITE_BLOB_READ_WRITE_TOKEN provided, skipping blob storage.");
       } else {
         const userData = JSON.stringify({
           email: signupData.email,
-          password: signupData.password, // In a real app, never store plain text
-          first_name: signupData.first_name,
+          name: signupData.name,
         });
         
         await put(`users/${signupData.email}.json`, userData, {
@@ -102,11 +101,6 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         return;
       }
 
-      // Fetch the user's JSON file from Blob based on predictable URL structure
-      // For Vercel Blob public access, usually the URL is `https://<store-id>.public.blob.vercel-storage.com/users/${email}.json`
-      // To simplify, we will just use fetch against the Vercel Blob API or just mock it if we don't have the URL prefix.
-      // Since `get` is not exposed directly for public objects in the same way, we can fetch the blob list, or construct the URL.
-      // We will assume the frontend can't securely list blobs without exposing the token, but we HAVE the token!
       const res = await fetch(`https://blob.vercel-storage.com?prefix=users/${loginData.email}.json`, {
         headers: {
           authorization: `Bearer ${token}`
@@ -115,14 +109,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       
       const data = await res.json();
       if (!data.blobs || data.blobs.length === 0) {
-        throw new Error("User not found");
-      }
-
-      const userRes = await fetch(data.blobs[0].url);
-      const userData = await userRes.json();
-
-      if (userData.password !== loginData.password) {
-        throw new Error("Invalid password");
+        throw new Error("Account not found");
       }
 
       toast.success("Welcome back!");
@@ -130,7 +117,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       navigate("/trading");
     } catch (error) {
       console.error(error);
-      toast.error("Invalid email or password.");
+      toast.error("Account not found. Please sign up first.");
     } finally {
       setLoading(false);
     }
@@ -166,19 +153,6 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                     placeholder="john@example.com"
                   />
                 </div>
-                <div className="space-y-1.5">
-                  <label htmlFor="login_pass" className="text-sm font-medium">Password</label>
-                  <input
-                    type="password"
-                    id="login_pass"
-                    name="password"
-                    value={loginData.password}
-                    onChange={handleLoginChange}
-                    required
-                    className="w-full h-11 px-3 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    placeholder="••••••••"
-                  />
-                </div>
                 <button
                   type="submit"
                   disabled={loading}
@@ -191,31 +165,18 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
             
             <TabsContent value="signup">
               <form onSubmit={handleSignup} className="space-y-4 mt-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label htmlFor="su_first_name" className="text-sm font-medium">First Name</label>
-                    <input
-                      type="text"
-                      id="su_first_name"
-                      name="first_name"
-                      required
-                      value={signupData.first_name}
-                      onChange={handleSignupChange}
-                      className="w-full h-11 px-3 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label htmlFor="su_last_name" className="text-sm font-medium">Last Name</label>
-                    <input
-                      type="text"
-                      id="su_last_name"
-                      name="last_name"
-                      required
-                      value={signupData.last_name}
-                      onChange={handleSignupChange}
-                      className="w-full h-11 px-3 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    />
-                  </div>
+                <div className="space-y-1.5">
+                  <label htmlFor="su_name" className="text-sm font-medium">Full Name</label>
+                  <input
+                    type="text"
+                    id="su_name"
+                    name="name"
+                    required
+                    value={signupData.name}
+                    onChange={handleSignupChange}
+                    placeholder="John Doe"
+                    className="w-full h-11 px-3 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
                 </div>
 
                 <div className="space-y-1.5">
@@ -227,46 +188,21 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                     required
                     value={signupData.email}
                     onChange={handleSignupChange}
+                    placeholder="john@example.com"
                     className="w-full h-11 px-3 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label htmlFor="su_phone" className="text-sm font-medium">Phone</label>
-                    <input
-                      type="tel"
-                      id="su_phone"
-                      name="phone"
-                      required
-                      value={signupData.phone}
-                      onChange={handleSignupChange}
-                      className="w-full h-11 px-3 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label htmlFor="su_country" className="text-sm font-medium">Country (Code)</label>
-                    <input
-                      type="text"
-                      id="su_country"
-                      name="country_name"
-                      required
-                      value={signupData.country_name}
-                      onChange={handleSignupChange}
-                      className="w-full h-11 px-3 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    />
-                  </div>
-                </div>
-
                 <div className="space-y-1.5">
-                  <label htmlFor="su_pass" className="text-sm font-medium">Password</label>
+                  <label htmlFor="su_phone" className="text-sm font-medium">Phone Number</label>
                   <input
-                    type="password"
-                    id="su_pass"
-                    name="password"
+                    type="tel"
+                    id="su_phone"
+                    name="phone"
                     required
-                    value={signupData.password}
+                    value={signupData.phone}
                     onChange={handleSignupChange}
+                    placeholder="+1 234 567 8900"
                     className="w-full h-11 px-3 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
@@ -274,7 +210,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full h-11 rounded-xl bg-primary text-primary-foreground font-medium flex items-center justify-center transition-all hover:opacity-90 disabled:opacity-50"
+                  className="w-full h-11 rounded-xl bg-primary text-primary-foreground font-medium flex items-center justify-center transition-all hover:opacity-90 disabled:opacity-50 mt-6"
                 >
                   {loading ? <Loader2 className="size-5 animate-spin" /> : "Create Account"}
                 </button>

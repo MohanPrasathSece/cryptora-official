@@ -6,15 +6,13 @@ import { Loader2 } from "lucide-react";
 export function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
+    name: "",
     email: "",
     phone: "",
-    country_name: "cy", // default to cyprus based on example, or could be empty
     description: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -22,16 +20,25 @@ export function ContactForm() {
     e.preventDefault();
     setLoading(true);
 
-    const success = await createLead(formData);
+    const parts = formData.name.trim().split(" ");
+    const first_name = parts[0] || "User";
+    const last_name = parts.slice(1).join(" ") || "Unknown";
+
+    const success = await createLead({
+      first_name,
+      last_name,
+      email: formData.email,
+      phone: formData.phone,
+      country_name: "cy",
+      description: formData.description || "Website Enquiry",
+    });
 
     if (success) {
       toast.success("Enquiry sent successfully. We'll be in touch!");
       setFormData({
-        first_name: "",
-        last_name: "",
+        name: "",
         email: "",
         phone: "",
-        country_name: "cy",
         description: "",
       });
     } else {
@@ -49,33 +56,18 @@ export function ContactForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-1.5">
-            <label htmlFor="first_name" className="text-sm font-medium">First Name</label>
-            <input
-              type="text"
-              id="first_name"
-              name="first_name"
-              required
-              value={formData.first_name}
-              onChange={handleChange}
-              className="w-full h-11 px-3 rounded-lg border border-[color:var(--border)] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-              placeholder="John"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <label htmlFor="last_name" className="text-sm font-medium">Last Name</label>
-            <input
-              type="text"
-              id="last_name"
-              name="last_name"
-              required
-              value={formData.last_name}
-              onChange={handleChange}
-              className="w-full h-11 px-3 rounded-lg border border-[color:var(--border)] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-              placeholder="Doe"
-            />
-          </div>
+        <div className="space-y-1.5">
+          <label htmlFor="name" className="text-sm font-medium">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full h-11 px-3 rounded-lg border border-[color:var(--border)] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+            placeholder="John Doe"
+          />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -102,31 +94,16 @@ export function ContactForm() {
               value={formData.phone}
               onChange={handleChange}
               className="w-full h-11 px-3 rounded-lg border border-[color:var(--border)] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-              placeholder="+1 (555) 000-0000"
+              placeholder="+1 234 567 8900"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="country_name" className="text-sm font-medium">Country Code</label>
-          <input
-            type="text"
-            id="country_name"
-            name="country_name"
-            required
-            value={formData.country_name}
-            onChange={handleChange}
-            className="w-full h-11 px-3 rounded-lg border border-[color:var(--border)] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-            placeholder="cy"
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <label htmlFor="description" className="text-sm font-medium">Enquiry</label>
+          <label htmlFor="description" className="text-sm font-medium">Message (Optional)</label>
           <textarea
             id="description"
             name="description"
-            required
             value={formData.description}
             onChange={handleChange}
             rows={4}
