@@ -54,8 +54,8 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const [signupData, setSignupData] = useState({ name: "", email: "", phone: "", password: "" });
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [signupData, setSignupData] = useState({ name: "", email: "", phone: "" });
+  const [loginData, setLoginData] = useState({ email: "" });
 
   const onSignupChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSignupData(p => ({ ...p, [e.target.id.replace("su_", "")]: e.target.value }));
@@ -66,10 +66,6 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (signupData.password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
     setLoading(true);
     try {
       const parts = signupData.name.trim().split(" ");
@@ -88,7 +84,6 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
           email: signupData.email,
           name: signupData.name,
           phone: signupData.phone,
-          passwordHint: btoa(signupData.password).slice(0, 8),
           createdAt: new Date().toISOString(),
         });
         await put(`users/${signupData.email}.json`, userData, {
@@ -197,8 +192,6 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
               </div>
               <InputField id="su_email" label="Email" type="email" placeholder="john@example.com"
                 value={signupData.email} onChange={onSignupChange} />
-              <InputField id="su_password" label="Password" type="password" placeholder="Min 8 characters"
-                value={signupData.password} onChange={onSignupChange} />
 
               <button type="submit" disabled={loading}
                 className="w-full h-11 rounded-lg bg-[color:var(--foreground)] text-white text-[14px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-5">
@@ -209,8 +202,6 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
             <form onSubmit={handleLogin} className="space-y-4">
               <InputField id="li_email" label="Email" type="email" placeholder="john@example.com"
                 value={loginData.email} onChange={onLoginChange} />
-              <InputField id="li_password" label="Password" type="password" placeholder="Your password"
-                value={loginData.password} onChange={onLoginChange} />
 
               <button type="submit" disabled={loading}
                 className="w-full h-11 rounded-lg bg-[color:var(--foreground)] text-white text-[14px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-5">
