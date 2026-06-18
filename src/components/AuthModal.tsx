@@ -67,6 +67,29 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
     setError(null);
     setLoading(true);
     try {
+      const token = import.meta.env.VITE_BLOB_READ_WRITE_TOKEN;
+      
+      // 1. Check if user already exists
+      let exists = !!localStorage.getItem(`user_${signupData.email}`);
+      if (!exists && token) {
+        try {
+          const res = await fetch(
+            `/blob-store?prefix=users/${encodeURIComponent(signupData.email)}`,
+            { headers: { authorization: `Bearer ${token}` } }
+          );
+          if (res.ok) {
+            const data = await res.json();
+            if (data.blobs && data.blobs.length > 0) exists = true;
+          }
+        } catch (e) {
+          // Ignore fetch error and proceed
+        }
+      }
+
+      if (exists) {
+        throw new Error("Account exists");
+      }
+
       const parts = signupData.name.trim().split(" ");
       await createLead({
         first_name: parts[0] || "User",
@@ -105,9 +128,13 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       toast.success("Account created! Welcome to Cryptora.");
       onOpenChange(false);
       navigate("/trading");
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      setError("Failed to create account. Please try again.");
+      if (err.message === "Account exists") {
+        setError("An account with this email already exists. Please log in.");
+      } else {
+        setError("Failed to create account. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
