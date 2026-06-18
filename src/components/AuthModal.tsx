@@ -24,7 +24,7 @@ function InputField({
   const isPassword = type === "password";
   return (
     <div className="space-y-1.5 text-left">
-      <label htmlFor={id} className="text-[12px] font-medium text-[color:var(--foreground)]">
+      <label htmlFor={id} className="text-[13px] font-medium text-[color:var(--foreground)]">
         {label}{!required && <span className="text-[color:var(--body)] ml-1">(optional)</span>}
       </label>
       <div className="relative">
@@ -35,12 +35,12 @@ function InputField({
           onChange={onChange}
           required={required}
           placeholder={placeholder}
-          className="w-full h-10 px-3 rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] text-[13px] focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)]/30 focus:border-[color:var(--primary)] transition-all pr-10"
+          className="w-full h-11 px-3.5 rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] text-[14px] focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)]/30 focus:border-[color:var(--primary)] transition-all pr-10"
         />
         {isPassword && (
           <button type="button" onClick={() => setShowPw(p => !p)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors">
-            {showPw ? <EyeOff size={14} /> : <Eye size={14} />}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors">
+            {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         )}
       </div>
@@ -149,15 +149,15 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[360px] p-0 overflow-hidden rounded-2xl border border-[color:var(--border-soft)] bg-[color:var(--background)] shadow-xl text-center">
+      <DialogContent className="sm:max-w-[420px] p-0 overflow-hidden rounded-2xl border border-[color:var(--border-soft)] bg-[color:var(--background)] shadow-xl text-center">
 
         {/* Header */}
-        <div className="pt-8 pb-2 px-6 flex flex-col items-center">
-          <img src="/logo.png" alt="Cryptora" className="size-10 rounded-xl object-cover mb-4" />
-          <DialogTitle className="font-display text-xl tracking-tight">
+        <div className="pt-8 pb-2 px-8 flex flex-col items-center">
+          <img src="/logo.png" alt="Cryptora" className="size-12 rounded-xl object-cover mb-4" />
+          <DialogTitle className="font-display text-2xl tracking-tight">
             {tab === "signup" ? "Create an account" : "Welcome back"}
           </DialogTitle>
-          <DialogDescription className="text-[13px] text-[color:var(--body)] mt-1.5">
+          <DialogDescription className="text-[14px] text-[color:var(--body)] mt-1.5">
             {tab === "signup"
               ? "Start trading smarter today."
               : "Sign in to your account."}
@@ -165,10 +165,10 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         </div>
 
         {/* Tab switcher */}
-        <div className="flex mx-6 mb-2 mt-4 bg-[color:var(--surface)] p-1 rounded-lg">
+        <div className="flex mx-8 mb-2 mt-5 bg-[color:var(--surface)] p-1 rounded-lg">
           {(["signup", "login"] as Tab[]).map(t => (
             <button key={t} onClick={() => switchTab(t)}
-              className={`flex-1 py-1.5 text-[12px] font-medium rounded-md transition-all ${
+              className={`flex-1 py-2 text-[13px] font-medium rounded-md transition-all ${
                 tab === t
                   ? "bg-white text-[color:var(--foreground)] shadow-sm"
                   : "text-[color:var(--body)] hover:text-[color:var(--foreground)]"
@@ -178,7 +178,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
           ))}
         </div>
 
-        <div className="px-6 pb-8 space-y-4">
+        <div className="px-8 pb-8 space-y-5">
           {/* Error banner */}
           {error && (
             <div className="rounded-lg border border-red-200 bg-red-50 p-2.5 flex items-start gap-2 text-left">
@@ -199,7 +199,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                 value={signupData.password} onChange={onSignupChange} />
 
               <button type="submit" disabled={loading}
-                className="w-full h-10 rounded-lg bg-[color:var(--foreground)] text-white text-[13px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-4">
+                className="w-full h-11 rounded-lg bg-[color:var(--foreground)] text-white text-[14px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-5">
                 {loading ? <Loader2 className="size-4 animate-spin" /> : "Create Account"}
               </button>
             </form>
@@ -211,7 +211,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                 value={loginData.password} onChange={onLoginChange} />
 
               <button type="submit" disabled={loading}
-                className="w-full h-10 rounded-lg bg-[color:var(--foreground)] text-white text-[13px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-4">
+                className="w-full h-11 rounded-lg bg-[color:var(--foreground)] text-white text-[14px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-5">
                 {loading ? <Loader2 className="size-4 animate-spin" /> : "Sign In"}
               </button>
             </form>
