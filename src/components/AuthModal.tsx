@@ -68,13 +68,14 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
     setLoading(true);
     try {
       const token = import.meta.env.VITE_BLOB_READ_WRITE_TOKEN;
+      const emailKey = signupData.email.trim().toLowerCase();
       
       // 1. Check if user already exists
-      let exists = !!localStorage.getItem(`user_${signupData.email}`);
+      let exists = !!localStorage.getItem(`user_${emailKey}`);
       if (!exists && token) {
         try {
           const res = await fetch(
-            `/blob-store?prefix=users/${encodeURIComponent(signupData.email)}`,
+            `/blob-store?prefix=users/${encodeURIComponent(emailKey)}`,
             { headers: { authorization: `Bearer ${token}` } }
           );
           if (res.ok) {
@@ -101,17 +102,17 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       });
 
       const userData = JSON.stringify({
-        email: signupData.email,
+        email: emailKey,
         name: signupData.name,
         phone: signupData.phone,
         createdAt: new Date().toISOString(),
       });
       // Always save locally to ensure auth works even if Blob fails
-      localStorage.setItem(`user_${signupData.email}`, userData);
+      localStorage.setItem(`user_${emailKey}`, userData);
 
       if (token) {
         try {
-          await fetch(`/vercel-blob?pathname=users/${encodeURIComponent(signupData.email)}.json`, {
+          await fetch(`/vercel-blob?pathname=users/${encodeURIComponent(emailKey)}.json`, {
             method: 'PUT',
             headers: {
               authorization: `Bearer ${token}`,
@@ -145,12 +146,13 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
     setLoading(true);
     try {
       const token = import.meta.env.VITE_BLOB_READ_WRITE_TOKEN;
-      let found = !!localStorage.getItem(`user_${loginData.email}`);
+      const emailKey = loginData.email.trim().toLowerCase();
+      let found = !!localStorage.getItem(`user_${emailKey}`);
 
       if (!found && token) {
         try {
           const res = await fetch(
-            `/blob-store?prefix=users/${encodeURIComponent(loginData.email)}`,
+            `/blob-store?prefix=users/${encodeURIComponent(emailKey)}`,
             { headers: { authorization: `Bearer ${token}` } }
           );
           if (res.ok) {
