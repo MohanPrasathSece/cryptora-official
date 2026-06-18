@@ -34,7 +34,7 @@ export function TermsConditions() {
       <section id="acceptance">
         <h2>Acceptance of Terms</h2>
         <p>
-          By accessing or using the Crypto AI website and platform ("Services"), you agree to be bound by these Terms and Conditions ("Terms"). If you disagree with any part of the terms, then you may not access the Service. These Terms apply to all visitors, users, and others who access or use the Service.
+          By accessing or using the Cryptora website and platform ("Services"), you agree to be bound by these Terms and Conditions ("Terms"). If you disagree with any part of the terms, then you may not access the Service. These Terms apply to all visitors, users, and others who access or use the Service.
         </p>
       </section>
 
@@ -48,7 +48,7 @@ export function TermsConditions() {
       <section id="purpose">
         <h2>Website Purpose</h2>
         <p>
-          Crypto AI provides an artificial intelligence-driven analytics and portfolio tracking interface. Our platform is designed to aggregate market data, surface trading insights, and provide organizational tools for digital asset tracking. The platform operates strictly as an informational and organizational tool.
+          Cryptora provides an artificial intelligence-driven analytics and portfolio tracking interface. Our platform is designed to aggregate market data, surface trading insights, and provide organizational tools for digital asset tracking. The platform operates strictly as an informational and organizational tool.
         </p>
       </section>
 
@@ -83,7 +83,7 @@ export function TermsConditions() {
       <section id="intellectual-property">
         <h2>Intellectual Property</h2>
         <p>
-          The Service and its original content, features, and functionality are and will remain the exclusive property of Crypto AI and its licensors. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of Crypto AI.
+          The Service and its original content, features, and functionality are and will remain the exclusive property of Cryptora and its licensors. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of Cryptora.
         </p>
       </section>
 
@@ -97,42 +97,42 @@ export function TermsConditions() {
       <section id="no-advice">
         <h2>No Financial, Investment, Tax, or Legal Advice</h2>
         <p>
-          <strong>All content and insights provided by Crypto AI, including AI-generated suggestions, are for informational purposes only.</strong> They do not constitute financial, investment, tax, or legal advice. You should not construe any such information or other material as a solicitation, recommendation, endorsement, or offer by Crypto AI to buy or sell any digital assets or other financial instruments.
+          <strong>All content and insights provided by Cryptora, including AI-generated suggestions, are for informational purposes only.</strong> They do not constitute financial, investment, tax, or legal advice. You should not construe any such information or other material as a solicitation, recommendation, endorsement, or offer by Cryptora to buy or sell any digital assets or other financial instruments.
         </p>
       </section>
 
       <section id="crypto-risk">
         <h2>Cryptocurrency Risk Disclosure</h2>
         <p>
-          Trading and investing in cryptocurrencies and digital assets involve significant risk. Prices are highly volatile, and you can lose all of your invested capital. You should carefully consider whether trading or holding digital assets is suitable for you in light of your financial condition. Crypto AI does not execute trades on your behalf and assumes no responsibility for your trading decisions.
+          Trading and investing in cryptocurrencies and digital assets involve significant risk. Prices are highly volatile, and you can lose all of your invested capital. You should carefully consider whether trading or holding digital assets is suitable for you in light of your financial condition. Cryptora does not execute trades on your behalf and assumes no responsibility for your trading decisions.
         </p>
       </section>
 
       <section id="no-guarantee">
         <h2>No Guarantee of Investment Returns</h2>
         <p>
-          Past performance of any trading strategy, asset, or insight surfaced by our AI is not indicative of future results. Crypto AI provides no guarantees whatsoever regarding investment returns, profit, or the avoidance of loss.
+          Past performance of any trading strategy, asset, or insight surfaced by our AI is not indicative of future results. Cryptora provides no guarantees whatsoever regarding investment returns, profit, or the avoidance of loss.
         </p>
       </section>
 
       <section id="liability">
         <h2>Limitation of Liability</h2>
         <p>
-          To the maximum extent permitted by applicable law, in no event shall Crypto AI, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use, or alteration of your transmissions or content.
+          To the maximum extent permitted by applicable law, in no event shall Cryptora, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use, or alteration of your transmissions or content.
         </p>
       </section>
 
       <section id="indemnification">
         <h2>Indemnification</h2>
         <p>
-          You agree to defend, indemnify, and hold harmless Crypto AI and its licensee and licensors, and their employees, contractors, agents, officers, and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the Service, or b) a breach of these Terms.
+          You agree to defend, indemnify, and hold harmless Cryptora and its licensee and licensors, and their employees, contractors, agents, officers, and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the Service, or b) a breach of these Terms.
         </p>
       </section>
 
       <section id="third-party">
         <h2>Third-Party Links</h2>
         <p>
-          Our Service may contain links to third-party web sites or services that are not owned or controlled by Crypto AI. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party web sites or services. You further acknowledge and agree that Crypto AI shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods, or services available on or through any such web sites or services.
+          Our Service may contain links to third-party web sites or services that are not owned or controlled by Cryptora. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party web sites or services. You further acknowledge and agree that Cryptora shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods, or services available on or through any such web sites or services.
         </p>
       </section>
 

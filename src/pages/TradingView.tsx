@@ -33,7 +33,7 @@ export function TradingView() {
         <div className="container-1400 max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Why trade with Crypto AI?</h2>
+              <h2 className="text-3xl font-bold mb-6">Why trade with Cryptora?</h2>
               <p className="text-[color:var(--body)] mb-8 leading-relaxed">
                 We abstract away the noise of traditional exchanges, providing a clean interface that highlights what actually matters: trends, momentum, and risk.
               </p>

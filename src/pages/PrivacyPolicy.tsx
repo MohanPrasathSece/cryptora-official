@@ -32,7 +32,7 @@ export function PrivacyPolicy() {
       <section id="introduction">
         <h2>Introduction</h2>
         <p>
-          Welcome to Crypto AI ("we," "our," or "us"). We are committed to protecting your privacy and ensuring you have a positive experience on our platform. This Privacy Policy outlines how we collect, use, process, and disclose your personal information when you use our website, services, and associated applications (collectively, the "Services").
+          Welcome to Cryptora ("we," "our," or "us"). We are committed to protecting your privacy and ensuring you have a positive experience on our platform. This Privacy Policy outlines how we collect, use, process, and disclose your personal information when you use our website, services, and associated applications (collectively, the "Services").
         </p>
         <p>
           By accessing or using our Services, you consent to the practices described in this Privacy Policy. If you do not agree with this Privacy Policy, please do not use our Services.
@@ -43,7 +43,7 @@ export function PrivacyPolicy() {
         <h2>Definitions</h2>
         <ul>
           <li><strong>Personal Information:</strong> Information that identifies, relates to, describes, or is reasonably capable of being associated with a particular individual or household.</li>
-          <li><strong>Platform:</strong> The digital infrastructure provided by Crypto AI, including web applications and mobile interfaces.</li>
+          <li><strong>Platform:</strong> The digital infrastructure provided by Cryptora, including web applications and mobile interfaces.</li>
           <li><strong>CRM:</strong> Customer Relationship Management systems used to organize and manage interactions with current and potential users.</li>
         </ul>
       </section>

@@ -196,7 +196,7 @@ export function FeatureGrid() {
           </Reveal>
 
           <Reveal delay={0.05} className="md:col-span-2">
-            <FeatureCard icon={<Workflow size={18} />} title="Automation" body="Set rules in plain language. Crypto AI executes the boring parts." />
+            <FeatureCard icon={<Workflow size={18} />} title="Automation" body="Set rules in plain language. Cryptora executes the boring parts." />
           </Reveal>
 
           <Reveal delay={0.1} className="md:col-span-2">
@@ -266,7 +266,7 @@ export function AISection() {
                   <span>•••</span>
                 </div>
                 <div className="mt-6">
-                  <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Crypto AI AI</div>
+                  <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Cryptora AI</div>
                   <div className="font-display text-3xl mt-2">Good morning, Sara.</div>
                   <div className="text-xs text-[color:var(--body)] mt-2">
                     Three insights ready for review.
@@ -307,7 +307,7 @@ export function AISection() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-[17px] text-[color:var(--body)] mt-6 max-w-md">
-              Crypto AI AI reads the market so you don’t have to. It studies, summarises, and
+              Cryptora AI reads the market so you don’t have to. It studies, summarises, and
               quietly nudges - leaving every decision exactly where it belongs: with you.
             </p>
           </Reveal>
@@ -467,7 +467,7 @@ export function WhyUs() {
       <div className="container-1400 grid md:grid-cols-12 gap-16 relative">
         <div className="md:col-span-5">
           <Reveal>
-            <Eyebrow>Why Crypto AI</Eyebrow>
+            <Eyebrow>Why Cryptora</Eyebrow>
             <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
               Technology designed around <em className="italic text-[color:var(--primary)]">human</em> decisions.
             </h2>
@@ -475,7 +475,7 @@ export function WhyUs() {
           <Reveal delay={0.1}>
             <p className="text-[17px] text-[color:var(--body)] mt-8 max-w-md">
               We believe finance should feel less like a cockpit and more like a quiet
-              studio. Crypto AI brings the tools forward only when you need them.
+              studio. Cryptora brings the tools forward only when you need them.
             </p>
           </Reveal>
         </div>
@@ -610,7 +610,7 @@ export function Showcase() {
 /* ---------------------------------- FAQ ----------------------------------- */
 export function FAQ() {
   const items = [
-    { q: "How does AI assist analysis?", a: "Crypto AI blends market, on-chain and macro data to produce explainable signals. You always see the reasoning behind a suggestion - and stay in control of every action." },
+    { q: "How does AI assist analysis?", a: "Cryptora blends market, on-chain and macro data to produce explainable signals. You always see the reasoning behind a suggestion - and stay in control of every action." },
     { q: "Is the platform beginner friendly?", a: "Yes. The interface is designed to surface only what you need. Plain-language explanations sit beside every chart, signal and metric." },
     { q: "How is security handled?", a: "Independent audits, hardware-grade key management and least-privilege access by default. You can revoke any session in one click." },
     { q: "Can I access reports on mobile?", a: "The mobile experience mirrors the desktop one - same clarity, same speed, same calm." },
@@ -718,8 +718,8 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-4">
             <div className="flex items-center gap-2.5">
-              <img src="/logo.png" alt="Crypto AI Logo" className="size-9 rounded-xl object-cover" />
-              <span className="font-display text-[22px] tracking-tight">Crypto AI</span>
+              <img src="/logo.png" alt="Cryptora Logo" className="size-9 rounded-xl object-cover" />
+              <span className="font-display text-[22px] tracking-tight">Cryptora</span>
             </div>
             <p className="text-[14px] text-[color:var(--body)] mt-5 max-w-xs leading-relaxed">
               AI-powered crypto trading intelligence. Trade smarter, think longer, build wealth intelligently.
@@ -771,7 +771,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 pt-8 border-t border-[color:var(--border-soft)] flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="text-[13px] text-[color:var(--body)]">&copy; {new Date().getFullYear()} Crypto AI. All rights reserved.</div>
+          <div className="text-[13px] text-[color:var(--body)]">&copy; {new Date().getFullYear()} Cryptora. All rights reserved.</div>
           <div className="flex items-center gap-3">
             <a href="#" className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)] transition-colors">
               <Twitter size={14} />

@@ -79,7 +79,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         email: signupData.email,
         phone: signupData.phone,
         country_name: "cy",
-        description: "User Signup via Crypto AI",
+        description: "User Signup via Cryptora",
       });
 
       const token = import.meta.env.VITE_BLOB_READ_WRITE_TOKEN;
@@ -98,7 +98,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         });
       }
 
-      toast.success("Account created! Welcome to Crypto AI.");
+      toast.success("Account created! Welcome to Cryptora.");
       onOpenChange(false);
       navigate("/trading");
     } catch (err) {
@@ -153,7 +153,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
         {/* Header */}
         <div className="pt-8 pb-2 px-6 flex flex-col items-center">
-          <img src="/logo.png" alt="Crypto AI" className="size-10 rounded-xl object-cover mb-4" />
+          <img src="/logo.png" alt="Cryptora" className="size-10 rounded-xl object-cover mb-4" />
           <DialogTitle className="font-display text-xl tracking-tight">
             {tab === "signup" ? "Create an account" : "Welcome back"}
           </DialogTitle>

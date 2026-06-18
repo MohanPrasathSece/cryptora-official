@@ -66,8 +66,8 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
     >
       <div className="container-1400 flex h-16 md:h-20 items-center justify-between">
         <a href="/" onClick={handleLogoClick} className="flex items-center gap-2.5 cursor-pointer">
-          <img src="/logo.png" alt="Crypto AI Logo" className="size-9 rounded-xl object-cover" />
-          <span className="font-display text-[22px] tracking-tight">Crypto AI</span>
+          <img src="/logo.png" alt="Cryptora Logo" className="size-9 rounded-xl object-cover" />
+          <span className="font-display text-[22px] tracking-tight">Cryptora</span>
         </a>
 
         <nav className="hidden md:flex items-center gap-9">

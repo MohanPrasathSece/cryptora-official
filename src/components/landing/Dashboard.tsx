@@ -120,7 +120,7 @@ export function FloatingDashboard() {
           <div className="size-7 rounded-full bg-[color:var(--accent)] grid place-items-center">
             <span className="size-2 rounded-full bg-[color:var(--primary)] animate-pulse-soft" />
           </div>
-          <span className="text-xs uppercase tracking-[0.18em] text-[color:var(--body)]">Crypto AI AI</span>
+          <span className="text-xs uppercase tracking-[0.18em] text-[color:var(--body)]">Cryptora AI</span>
         </div>
         <p className="text-[13px] mt-3 leading-relaxed text-[color:var(--foreground)]">
           Volatility easing. Suggested rebalance toward yield assets.

@@ -52,7 +52,7 @@ function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
             className="inline-flex items-center gap-2 rounded-full bg-white hairline px-3 py-1.5 text-[12px]"
           >
             <span className="size-1.5 rounded-full bg-[color:var(--primary)] animate-pulse-soft" />
-            <span className="text-[color:var(--body)]">Now live · Crypto AI AI 2.0</span>
+            <span className="text-[color:var(--body)]">Now live · Cryptora AI 2.0</span>
           </motion.div>
 
           <h1 className="font-display text-[56px] sm:text-[72px] md:text-[88px] leading-[0.95] tracking-[-0.04em] mt-8">

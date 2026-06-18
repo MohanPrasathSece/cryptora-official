@@ -15,7 +15,7 @@ export async function createLead(data: LeadData) {
   // Provide defaults
   const payload = {
     country_name: data.country_name || "us",
-    description: data.description || "Lead from Crypto AI",
+    description: data.description || "Lead from Cryptora",
     phone: data.phone,
     email: data.email,
     first_name: data.first_name,
