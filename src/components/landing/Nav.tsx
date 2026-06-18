@@ -10,7 +10,7 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = ["Platform", "Technology", "AI", "Security", "Pricing", "Company"];
+  const links = ["Platform", "Technology", "AI", "Contact"];
 
   return (
     <motion.header
