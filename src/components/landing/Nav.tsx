@@ -66,37 +66,52 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
     >
       <div className="container-1400 flex h-16 md:h-20 items-center justify-between">
         <a href="/" onClick={handleLogoClick} className="flex items-center gap-2.5 cursor-pointer">
-          <img src="/logo.png" alt="Cryptora Logo" className="size-9 rounded-xl object-cover" />
-          <span className="font-display text-[22px] tracking-tight">Cryptora</span>
+          <img src="/logo.png" alt="Cryptora Logo" className="h-9 w-auto object-contain" />
         </a>
 
-        <nav className="hidden md:flex items-center gap-9">
-          {links.map((l) => (
-            <a
-              key={l.id}
-              href={`/#${l.id}`}
-              onClick={(e) => handleNavClick(e, l.id)}
-              className="text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
+        {location.pathname !== "/trading" ? (
+          <>
+            <nav className="hidden md:flex items-center gap-9">
+              {links.map((l) => (
+                <a
+                  key={l.id}
+                  href={`/#${l.id}`}
+                  onClick={(e) => handleNavClick(e, l.id)}
+                  className="text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </nav>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => { if (onAuthOpen) onAuthOpen(); }}
-            className="hidden sm:inline-flex items-center h-10 px-4 text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors cursor-pointer"
-          >
-            Sign in
-          </button>
-          <button
-            onClick={() => { if (onAuthOpen) onAuthOpen(); }}
-            className="inline-flex items-center h-10 px-5 rounded-full bg-[color:var(--foreground)] text-white text-[13px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(17,17,17,0.4)] cursor-pointer"
-          >
-            Get started
-          </button>
-        </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => { if (onAuthOpen) onAuthOpen(); }}
+                className="hidden sm:inline-flex items-center h-10 px-4 text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors cursor-pointer"
+              >
+                Sign in
+              </button>
+              <button
+                onClick={() => { if (onAuthOpen) onAuthOpen(); }}
+                className="inline-flex items-center h-10 px-5 rounded-full bg-[color:var(--foreground)] text-white text-[13px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(17,17,17,0.4)] cursor-pointer"
+              >
+                Get started
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="flex items-center">
+            <button
+              onClick={() => {
+                // simple logout
+                navigate("/");
+              }}
+              className="inline-flex items-center h-10 px-5 rounded-full bg-[color:var(--surface)] text-[color:var(--foreground)] text-[13px] font-medium transition-all hover:bg-[color:var(--border-soft)] cursor-pointer"
+            >
+              Log out
+            </button>
+          </div>
+        )}
       </div>
     </motion.header>
   );
