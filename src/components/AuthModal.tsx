@@ -122,15 +122,15 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         }
       }
 
-      toast.success("Account created! Welcome to Cryptora.");
+      toast.success("Compte créé ! Bienvenue sur Cryptora.");
       onOpenChange(false);
       navigate("/trading");
     } catch (err: any) {
       console.error(err);
       if (err.message === "Account exists") {
-        setError("An account with this email already exists. Please log in.");
+        setError("Un compte avec cet email existe déjà. Veuillez vous connecter.");
       } else {
-        setError("Failed to create account. Please try again.");
+        setError("Échec de la création du compte. Veuillez réessayer.");
       }
     } finally {
       setLoading(false);
@@ -162,14 +162,14 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         throw new Error("No account found with that email.");
       }
 
-      toast.success("Welcome back!");
+      toast.success("Bon retour !");
       onOpenChange(false);
       navigate("/trading");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Login failed.";
       setError(message === "No account found with that email."
-        ? "No account found. Please sign up first."
-        : "Login failed. Please try again.");
+        ? "Aucun compte trouvé. Veuillez d'abord vous inscrire."
+        : "Échec de la connexion. Veuillez réessayer.");
     } finally {
       setLoading(false);
     }
@@ -185,12 +185,12 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         <div className="pt-8 pb-2 px-8 flex flex-col items-center">
           <img src="/logo.png" alt="Cryptora" className="h-10 w-auto object-contain mb-4" />
           <DialogTitle className="font-display text-2xl tracking-tight">
-            {tab === "signup" ? "Create an account" : "Welcome back"}
+            {tab === "signup" ? "Créer un compte" : "Bon retour"}
           </DialogTitle>
           <DialogDescription className="text-[14px] text-[color:var(--body)] mt-1.5">
             {tab === "signup"
-              ? "Start trading smarter today."
-              : "Sign in to your account."}
+              ? "Commencez à trader plus intelligemment aujourd'hui."
+              : "Connectez-vous à votre compte."}
           </DialogDescription>
         </div>
 
@@ -203,7 +203,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                   ? "bg-white text-[color:var(--foreground)] shadow-sm"
                   : "text-[color:var(--body)] hover:text-[color:var(--foreground)]"
               }`}>
-              {t === "signup" ? "Sign Up" : "Log In"}
+              {t === "signup" ? "S'inscrire" : "Se connecter"}
             </button>
           ))}
         </div>
@@ -220,9 +220,9 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
           {tab === "signup" ? (
             <form onSubmit={handleSignup} className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
-                <InputField id="su_name" label="Full Name" placeholder="John Doe"
+                <InputField id="su_name" label="Nom complet" placeholder="John Doe"
                   value={signupData.name} onChange={onSignupChange} />
-                <InputField id="su_phone" label="Phone" type="tel" placeholder="+1 234 567"
+                <InputField id="su_phone" label="Téléphone" type="tel" placeholder="+1 234 567"
                   value={signupData.phone} onChange={onSignupChange} />
               </div>
               <InputField id="su_email" label="Email" type="email" placeholder="john@example.com"
@@ -230,7 +230,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
               <button type="submit" disabled={loading}
                 className="w-full h-11 rounded-lg bg-[color:var(--foreground)] text-white text-[14px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-5">
-                {loading ? <Loader2 className="size-4 animate-spin" /> : "Create Account"}
+                {loading ? <Loader2 className="size-4 animate-spin" /> : "Créer un compte"}
               </button>
             </form>
           ) : (
@@ -240,14 +240,14 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
               <button type="submit" disabled={loading}
                 className="w-full h-11 rounded-lg bg-[color:var(--foreground)] text-white text-[14px] font-medium flex items-center justify-center gap-2 transition-all hover:opacity-90 disabled:opacity-50 mt-5">
-                {loading ? <Loader2 className="size-4 animate-spin" /> : "Sign In"}
+                {loading ? <Loader2 className="size-4 animate-spin" /> : "Se connecter"}
               </button>
             </form>
           )}
 
           <div className="pt-2">
             <p className="text-[11px] text-[color:var(--body)] leading-tight px-2">
-              By continuing, you agree to our <a href="/terms" className="underline hover:text-[color:var(--foreground)]">Terms</a> and <a href="/privacy" className="underline hover:text-[color:var(--foreground)]">Privacy Policy</a>.
+              En continuant, vous acceptez nos <a href="/terms" className="underline hover:text-[color:var(--foreground)]">Termes</a> et notre <a href="/privacy" className="underline hover:text-[color:var(--foreground)]">Politique de confidentialité</a>.
             </p>
           </div>
         </div>

@@ -34,7 +34,7 @@ export function ContactForm() {
     });
 
     if (success) {
-      toast.success("Enquiry sent successfully. We'll be in touch!");
+      toast.success("Demande envoyée avec succès. Nous vous contacterons !");
       setFormData({
         name: "",
         email: "",
@@ -42,7 +42,7 @@ export function ContactForm() {
         description: "",
       });
     } else {
-      toast.error("Failed to send enquiry. Please try again later.");
+      toast.error("Échec de l'envoi de la demande. Veuillez réessayer plus tard.");
     }
     
     setLoading(false);
@@ -51,13 +51,13 @@ export function ContactForm() {
   return (
     <div className="w-full max-w-2xl mx-auto bg-white/5 border border-[color:var(--border)] rounded-2xl p-6 md:p-8 backdrop-blur-sm">
       <div className="mb-8">
-        <h3 className="text-2xl font-semibold mb-2">Get in touch</h3>
-        <p className="text-[color:var(--body)] text-sm">Have a question or want to learn more about our trading platform? Drop us a line.</p>
+        <h3 className="text-2xl font-semibold mb-2">Entrer en contact</h3>
+        <p className="text-[color:var(--body)] text-sm">Vous avez une question ou vous voulez en savoir plus sur notre plateforme de trading ? Laissez-nous un message.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1.5">
-          <label htmlFor="name" className="text-sm font-medium">Full Name</label>
+          <label htmlFor="name" className="text-sm font-medium">Nom complet</label>
           <input
             type="text"
             id="name"
@@ -85,7 +85,7 @@ export function ContactForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <label htmlFor="phone" className="text-sm font-medium">Phone</label>
+            <label htmlFor="phone" className="text-sm font-medium">Téléphone</label>
             <input
               type="tel"
               id="phone"
@@ -100,7 +100,7 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="description" className="text-sm font-medium">Message (Optional)</label>
+          <label htmlFor="description" className="text-sm font-medium">Message (Optionnel)</label>
           <textarea
             id="description"
             name="description"
@@ -108,7 +108,7 @@ export function ContactForm() {
             onChange={handleChange}
             rows={4}
             className="w-full p-3 rounded-lg border border-[color:var(--border)] bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
-            placeholder="How can we help you?"
+            placeholder="Comment pouvons-nous vous aider ?"
           />
         </div>
 
@@ -117,7 +117,7 @@ export function ContactForm() {
           disabled={loading}
           className="w-full h-12 mt-4 rounded-xl bg-primary text-primary-foreground font-medium flex items-center justify-center transition-all hover:opacity-90 disabled:opacity-50"
         >
-          {loading ? <Loader2 className="size-5 animate-spin" /> : "Send Enquiry"}
+          {loading ? <Loader2 className="size-5 animate-spin" /> : "Envoyer la demande"}
         </button>
       </form>
     </div>

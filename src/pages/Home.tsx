@@ -35,9 +35,9 @@ function HeadlineWord({ children, delay }: { children: React.ReactNode; delay: n
 }
 
 function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
-  const line1 = ["Trade", "smarter."];
-  const line2 = ["Think", "longer."];
-  const line3 = ["Build", "wealth", "intelligently."];
+  const line1 = ["Tradez", "plus intelligemment."];
+  const line2 = ["Pensez", "à long terme."];
+  const line3 = ["Construisez", "la richesse", "intelligemment."];
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center pt-24 md:pt-40 pb-20 md:pb-24 noise grain-bg overflow-hidden">
@@ -52,10 +52,10 @@ function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
             className="inline-flex items-center gap-2 rounded-full bg-white hairline px-3 py-1.5 text-[12px]"
           >
             <span className="size-1.5 rounded-full bg-[color:var(--primary)] animate-pulse-soft" />
-            <span className="text-[color:var(--body)]">Now live · Cryptora AI 2.0</span>
+            <span className="text-[color:var(--body)]">Maintenant en direct · Cryptora AI 2.0</span>
           </motion.div>
 
-          <h1 className="font-display text-[44px] sm:text-[56px] md:text-[68px] leading-[1] tracking-[-0.03em] mt-8">
+          <h1 className="font-display text-[32px] sm:text-[40px] md:text-[48px] leading-[1] tracking-[-0.03em] mt-8">
             <div>
               {line1.map((w, i) => (
                 <HeadlineWord key={i} delay={0.4 + i * 0.07}>
@@ -92,8 +92,8 @@ function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
             transition={{ duration: 0.9, delay: 1.3 }}
             className="text-[17px] md:text-[18px] text-[color:var(--body)] mt-8 max-w-lg leading-[1.7]"
           >
-            Experience a beautifully designed platform combining artificial intelligence,
-            automation, and real-time market intelligence to help you understand digital finance.
+            Découvrez une plateforme magnifiquement conçue combinant l'intelligence artificielle,
+            l'automatisation et l'intelligence de marché en temps réel pour vous aider à comprendre la finance numérique.
           </motion.p>
 
           <motion.div
@@ -106,14 +106,14 @@ function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
               onClick={onAuthOpen}
               className="group inline-flex items-center gap-2 h-14 px-7 rounded-full bg-[color:var(--foreground)] text-white text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-20px_rgba(17,17,17,0.5)]"
             >
-              Sign Up
+              S'inscrire
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </button>
             <button
               onClick={onAuthOpen}
               className="inline-flex items-center gap-2 h-14 px-7 rounded-full bg-white hairline text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
             >
-              Log In
+              Se connecter
             </button>
           </motion.div>
         </div>

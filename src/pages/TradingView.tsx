@@ -13,10 +13,10 @@ export function TradingView() {
       <section className="py-16 md:py-24 px-6 relative overflow-hidden">
         <div className="container-1400 max-w-5xl mx-auto text-center">
           <h1 className="text-3xl md:text-5xl font-display font-bold mb-6 tracking-tight">
-            Live Crypto Intelligence
+            Intelligence Crypto en Direct
           </h1>
           <p className="text-lg md:text-xl text-[color:var(--body)] max-w-2xl mx-auto">
-            Advanced real-time market data, algorithmic sentiment analysis, and high-frequency trading indicators-all inside a calm, focused environment.
+            Données de marché avancées en temps réel, analyse de sentiment algorithmique et indicateurs de trading haute fréquence - le tout dans un environnement calme et concentré.
           </p>
         </div>
       </section>
@@ -33,9 +33,9 @@ export function TradingView() {
         <div className="container-1400 max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Why trade with Cryptora?</h2>
+              <h2 className="text-3xl font-bold mb-6">Pourquoi trader avec Cryptora ?</h2>
               <p className="text-[color:var(--body)] mb-8 leading-relaxed">
-                We abstract away the noise of traditional exchanges, providing a clean interface that highlights what actually matters: trends, momentum, and risk.
+                Nous faisons abstraction du bruit des échanges traditionnels, en fournissant une interface épurée qui met en évidence ce qui compte vraiment : les tendances, le momentum et le risque.
               </p>
               
               <ul className="space-y-6">
@@ -44,8 +44,8 @@ export function TradingView() {
                     <TrendingUp className="text-primary size-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-lg">Algorithmic Trends</h4>
-                    <p className="text-[color:var(--body)] text-sm mt-1">Our AI predicts micro-trends before they appear on standard charts.</p>
+                    <h4 className="font-semibold text-lg">Tendances algorithmiques</h4>
+                    <p className="text-[color:var(--body)] text-sm mt-1">Notre IA prédit les micro-tendances avant qu'elles n'apparaissent sur les graphiques standards.</p>
                   </div>
                 </li>
                 <li className="flex gap-4">
@@ -53,8 +53,8 @@ export function TradingView() {
                     <Activity className="text-primary size-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-lg">Real-time Sentiment</h4>
-                    <p className="text-[color:var(--body)] text-sm mt-1">Live data streams from global news and social platforms analyzed instantly.</p>
+                    <h4 className="font-semibold text-lg">Sentiment en temps réel</h4>
+                    <p className="text-[color:var(--body)] text-sm mt-1">Flux de données en direct provenant des actualités mondiales et des réseaux sociaux analysés instantanément.</p>
                   </div>
                 </li>
                 <li className="flex gap-4">
@@ -62,8 +62,8 @@ export function TradingView() {
                     <Shield className="text-primary size-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-lg">Risk Management</h4>
-                    <p className="text-[color:var(--body)] text-sm mt-1">Automated stop-losses based on volatility indexes.</p>
+                    <h4 className="font-semibold text-lg">Gestion des risques</h4>
+                    <p className="text-[color:var(--body)] text-sm mt-1">Stop-loss automatisés basés sur les indices de volatilité.</p>
                   </div>
                 </li>
               </ul>
@@ -100,7 +100,7 @@ export function TradingView() {
                 </div>
               </div>
               <div className="bg-background rounded-2xl p-6 border border-[color:var(--border)] relative overflow-hidden group hover:border-[color:var(--primary)] transition-colors">
-                <div className="text-sm text-[color:var(--body)] mb-2">Market Cap</div>
+                <div className="text-sm text-[color:var(--body)] mb-2">Capitalisation</div>
                 <div className="text-3xl font-mono font-bold">$2.4T</div>
                 <div className="text-green-500 text-sm mt-2 flex items-center gap-1">
                   <ArrowUpRight size={16} /> +1.1%
@@ -118,43 +118,43 @@ export function TradingView() {
             <div>
               <h2 className="text-3xl font-bold flex items-center gap-3">
                 <BrainCircuit className="text-[color:var(--primary)]" />
-                AI Market Signals
+                Signaux de marché IA
               </h2>
-              <p className="text-[color:var(--body)] mt-2">Real-time alerts generated by our neural network</p>
+              <p className="text-[color:var(--body)] mt-2">Alertes en temps réel générées par notre réseau neuronal</p>
             </div>
             <button className="hidden sm:flex items-center gap-2 text-sm font-medium text-[color:var(--primary)] hover:text-white transition-colors">
-              <Bell size={16} /> Configure Alerts
+              <Bell size={16} /> Configurer les alertes
             </button>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                title: "Whale Accumulation",
+                title: "Accumulation de baleines",
                 asset: "Bitcoin (BTC)",
-                time: "2 mins ago",
-                desc: "Large wallet entities have accumulated 4,500 BTC in the last 24 hours.",
-                sentiment: "Bullish",
+                time: "Il y a 2 min",
+                desc: "De grandes entités ont accumulé 4 500 BTC au cours des 24 dernières heures.",
+                sentiment: "Haussier",
                 color: "text-green-500",
                 bg: "bg-green-500/10",
                 border: "border-green-500/20"
               },
               {
-                title: "Liquidity Drain",
+                title: "Drain de liquidité",
                 asset: "Ethereum (ETH)",
-                time: "14 mins ago",
-                desc: "Exchange reserves for ETH have dropped to a 4-month low.",
-                sentiment: "High Impact",
+                time: "Il y a 14 min",
+                desc: "Les réserves des échanges pour l'ETH ont chuté à leur plus bas niveau en 4 mois.",
+                sentiment: "Fort impact",
                 color: "text-blue-500",
                 bg: "bg-blue-500/10",
                 border: "border-blue-500/20"
               },
               {
-                title: "Volatility Spike",
-                asset: "Global Market",
-                time: "1 hour ago",
-                desc: "Options market pricing in a 10% move within the next 48 hours.",
-                sentiment: "Caution",
+                title: "Pic de volatilité",
+                asset: "Marché mondial",
+                time: "Il y a 1 heure",
+                desc: "Le marché des options prévoit un mouvement de 10 % dans les prochaines 48 heures.",
+                sentiment: "Prudence",
                 color: "text-yellow-500",
                 bg: "bg-yellow-500/10",
                 border: "border-yellow-500/20"

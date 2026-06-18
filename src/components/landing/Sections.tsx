@@ -58,11 +58,11 @@ export function Eyebrow({ children }: { children: React.ReactNode }) {
 /* --------------------------------- Trust ---------------------------------- */
 export function TrustBar() {
   const items = [
-    "Secure Infrastructure",
-    "Advanced Analytics",
-    "24/7 Monitoring",
-    "Enterprise Security",
-    "Real-Time Insights",
+    "Infrastructure sécurisée",
+    "Analyses avancées",
+    "Surveillance 24/7",
+    "Sécurité d'entreprise",
+    "Aperçus en temps réel",
     "ISO 27001",
     "SOC 2 Type II",
   ];
@@ -71,7 +71,7 @@ export function TrustBar() {
     <section className="py-16 md:py-20 border-y border-[color:var(--border-soft)] overflow-hidden">
       <div className="container-1400">
         <div className="text-center text-[11px] uppercase tracking-[0.24em] text-[color:var(--body)] mb-10">
-          Trusted by modern investors, analysts and innovators worldwide
+          Approuvé par des investisseurs, analystes et innovateurs modernes du monde entier
         </div>
       </div>
       <div className="relative">
@@ -101,16 +101,16 @@ export function Overview() {
       <div className="container-1400 grid md:grid-cols-12 gap-12 md:gap-16 items-center">
         <div className="md:col-span-5">
           <Reveal>
-            <Eyebrow>The Platform</Eyebrow>
+            <Eyebrow>La Plateforme</Eyebrow>
             <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
-              Built around <em className="italic text-[color:var(--primary)]">simplicity</em>.
+              Construite autour de la <em className="italic text-[color:var(--primary)]">simplicité</em>.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-[17px] text-[color:var(--body)] mt-8 max-w-md">
-              Clean dashboards. AI assistance. Automation where it matters. A workspace for
-              modern finance, designed to remove friction and reveal what actually moves
-              your portfolio.
+              Des tableaux de bord épurés. Assistance par IA. L'automatisation là où ça compte. Un espace de travail pour
+              la finance moderne, conçu pour supprimer les frictions et révéler ce qui fait vraiment bouger
+              votre portefeuille.
             </p>
           </Reveal>
           <Reveal delay={0.2}>
@@ -118,7 +118,7 @@ export function Overview() {
               href="#technology"
               className="inline-flex items-center gap-2 mt-10 text-[14px] text-[color:var(--foreground)] group"
             >
-              Learn more
+              En savoir plus
               <span className="inline-flex size-9 items-center justify-center rounded-full border border-[color:var(--border)] transition-all group-hover:bg-[color:var(--foreground)] group-hover:text-white group-hover:translate-x-1">
                 <ArrowRight size={14} />
               </span>
@@ -134,18 +134,18 @@ export function Overview() {
                 <div className="rounded-[22px] bg-[color:var(--surface)] p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 min-h-[420px]">
                   <div className="col-span-1 sm:col-span-2 flex items-end justify-between">
                     <div>
-                      <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Workspace</div>
-                      <div className="font-display text-3xl mt-1">Today's view</div>
+                      <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Espace de travail</div>
+                      <div className="font-display text-3xl mt-1">Vue d'aujourd'hui</div>
                     </div>
                     <div className="hidden sm:flex items-center gap-2 text-xs text-[color:var(--body)]">
-                      <Search size={14} /> Search
+                      <Search size={14} /> Recherche
                     </div>
                   </div>
                   {[
-                    { label: "Positions", v: "12", note: "balanced" },
-                    { label: "Signals", v: "4", note: "today" },
-                    { label: "Drawdown", v: "-1.2%", note: "30d" },
-                    { label: "Yield", v: "5.8%", note: "stable" },
+                    { label: "Positions", v: "12", note: "équilibré" },
+                    { label: "Signaux", v: "4", note: "aujourd'hui" },
+                    { label: "Baisse", v: "-1.2%", note: "30j" },
+                    { label: "Rendement", v: "5.8%", note: "stable" },
                   ].map((s) => (
                     <div key={s.label} className="rounded-2xl bg-white hairline p-5">
                       <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">{s.label}</div>
@@ -170,9 +170,9 @@ export function FeatureGrid() {
       <div className="container-1400">
         <div className="max-w-2xl">
           <Reveal>
-            <Eyebrow>Capabilities</Eyebrow>
+            <Eyebrow>Capacités</Eyebrow>
             <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
-              A complete intelligence layer for your assets.
+              Une couche d'intelligence complète pour vos actifs.
             </h2>
           </Reveal>
         </div>
@@ -182,8 +182,8 @@ export function FeatureGrid() {
             <FeatureCard
               big
               icon={<Brain size={18} />}
-              title="AI Insights"
-              body="Models trained on macro, on-chain and sentiment data surface what matters before it moves the market."
+              title="Aperçus de l'IA"
+              body="Des modèles formés sur des données macro, on-chain et de sentiment font ressortir ce qui compte avant que le marché ne bouge."
             >
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {["Macro", "On-chain", "Sentiment"].map((t) => (
@@ -196,23 +196,23 @@ export function FeatureGrid() {
           </Reveal>
 
           <Reveal delay={0.05} className="md:col-span-2">
-            <FeatureCard icon={<Workflow size={18} />} title="Automation" body="Set rules in plain language. Cryptora executes the boring parts." />
+            <FeatureCard icon={<Workflow size={18} />} title="Automatisation" body="Définissez des règles en langage clair. Cryptora exécute les parties ennuyeuses." />
           </Reveal>
 
           <Reveal delay={0.1} className="md:col-span-2">
-            <FeatureCard icon={<LineChart size={18} />} title="Portfolio Tracking" body="One quiet view of every position, balance and exposure." />
+            <FeatureCard icon={<LineChart size={18} />} title="Suivi de portefeuille" body="Une vue tranquille de chaque position, solde et exposition." />
           </Reveal>
 
           <Reveal delay={0.15} className="md:col-span-2">
-            <FeatureCard icon={<Layers size={18} />} title="Advanced Analytics" body="Backtest, compare, and study every decision you make." />
+            <FeatureCard icon={<Layers size={18} />} title="Analyses avancées" body="Backtestez, comparez et étudiez chaque décision que vous prenez." />
           </Reveal>
 
           <Reveal delay={0.2} className="md:col-span-2">
-            <FeatureCard icon={<ShieldCheck size={18} />} title="Enterprise Security" body="Hardware-grade encryption, audited end to end." />
+            <FeatureCard icon={<ShieldCheck size={18} />} title="Sécurité d'entreprise" body="Chiffrement matériel, audité de bout en bout." />
           </Reveal>
 
           <Reveal delay={0.25} className="md:col-span-2">
-            <FeatureCard icon={<Search size={18} />} title="Market Research" body="A research library that updates itself, every morning." />
+            <FeatureCard icon={<Search size={18} />} title="Recherche de marché" body="Une bibliothèque de recherche qui se met à jour, chaque matin." />
           </Reveal>
         </div>
       </div>
@@ -267,16 +267,16 @@ export function AISection() {
                 </div>
                 <div className="mt-6">
                   <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Cryptora AI</div>
-                  <div className="font-display text-3xl mt-2">Good morning, Sara.</div>
+                  <div className="font-display text-3xl mt-2">Bonjour, Sara.</div>
                   <div className="text-xs text-[color:var(--body)] mt-2">
-                    Three insights ready for review.
+                    Trois aperçus prêts à être examinés.
                   </div>
                 </div>
                 <div className="mt-6 space-y-3">
                   {[
-                    "Volatility easing on majors",
-                    "Yield strategy outperforming",
-                    "Rebalance suggested",
+                    "Baisse de la volatilité sur les majeures",
+                    "La stratégie de rendement surperforme",
+                    "Rééquilibrage suggéré",
                   ].map((t, i) => (
                     <motion.div
                       key={t}
@@ -302,22 +302,22 @@ export function AISection() {
           <Reveal>
             <Eyebrow>Intelligence</Eyebrow>
             <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
-              An assistant that <em className="italic text-[color:var(--primary)]">thinks ahead</em>.
+              Un assistant qui <em className="italic text-[color:var(--primary)]">anticipe</em>.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-[17px] text-[color:var(--body)] mt-6 max-w-md">
-              Cryptora AI reads the market so you don’t have to. It studies, summarises, and
-              quietly nudges - leaving every decision exactly where it belongs: with you.
+              Cryptora AI lit le marché pour que vous n'ayez pas à le faire. Il étudie, résume et
+              suggère discrètement - laissant chaque décision exactement là où elle doit être : avec vous.
             </p>
           </Reveal>
           <div className="mt-10 divide-y divide-[color:var(--border-soft)]">
             {[
-              { t: "AI Market Research", d: "Daily briefs from a dozen data sources." },
-              { t: "Trend Recognition", d: "Pattern detection across timeframes." },
-              { t: "Smart Notifications", d: "Calm by default. Loud when it matters." },
-              { t: "Portfolio Suggestions", d: "Rebalances framed in plain language." },
-              { t: "Risk Monitoring", d: "A watchful eye, always on." },
+              { t: "Recherche de marché IA", d: "Mémos quotidiens à partir d'une douzaine de sources." },
+              { t: "Reconnaissance de tendances", d: "Détection de modèles sur différentes périodes." },
+              { t: "Notifications intelligentes", d: "Calme par défaut. Bruyant quand ça compte." },
+              { t: "Suggestions de portefeuille", d: "Rééquilibrages formulés en langage clair." },
+              { t: "Surveillance des risques", d: "Un œil vigilant, toujours ouvert." },
             ].map((f, i) => (
               <Reveal key={f.t} delay={i * 0.06}>
                 <div className="py-5 flex items-start gap-6 group">
@@ -342,10 +342,10 @@ export function AISection() {
 /* --------------------------------- Process -------------------------------- */
 export function Process() {
   const steps = [
-    { n: "01", t: "Create account", d: "Begin in under a minute." },
-    { n: "02", t: "Connect portfolio", d: "Securely link your assets." },
-    { n: "03", t: "Receive AI insights", d: "Daily intelligence, tailored." },
-    { n: "04", t: "Track performance", d: "Quiet clarity, every day." },
+    { n: "01", t: "Créer un compte", d: "Commencez en moins d'une minute." },
+    { n: "02", t: "Connecter le portefeuille", d: "Liez vos actifs en toute sécurité." },
+    { n: "03", t: "Recevoir les aperçus IA", d: "Intelligence quotidienne, sur mesure." },
+    { n: "04", t: "Suivre la performance", d: "Clarté tranquille, chaque jour." },
   ];
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start 0.8", "end 0.3"] });
@@ -354,9 +354,9 @@ export function Process() {
     <section className="py-32 md:py-40 bg-[color:var(--surface)]">
       <div className="container-1400">
         <Reveal>
-          <Eyebrow>How it works</Eyebrow>
+          <Eyebrow>Comment ça marche</Eyebrow>
           <h2 className="font-display text-4xl md:text-5xl mt-6 max-w-xl">
-            Set up in minutes. Refined for years.
+            Configuration en quelques minutes. Perfectionné pendant des années.
           </h2>
         </Reveal>
         <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-4 gap-5 mt-16 relative">
@@ -398,10 +398,10 @@ export function WhyUs() {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const bgY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
   const items = [
-    { t: "Minimal Interface", d: "A calm surface that gets out of your way." },
-    { t: "AI Intelligence", d: "Smart, transparent, always explainable." },
-    { t: "Enterprise Security", d: "Independently audited and continuously tested." },
-    { t: "Continuous Innovation", d: "A platform that improves quietly, every week." },
+    { t: "Interface minimale", d: "Une surface calme qui ne vous encombre pas." },
+    { t: "Intelligence Artificielle", d: "Intelligent, transparent, toujours explicable." },
+    { t: "Sécurité d'entreprise", d: "Audité indépendamment et testé en continu." },
+    { t: "Innovation continue", d: "Une plateforme qui s'améliore discrètement, chaque semaine." },
   ];
   return (
     <section ref={sectionRef} className="py-32 md:py-40 relative overflow-hidden">
@@ -413,15 +413,14 @@ export function WhyUs() {
       <div className="container-1400 grid md:grid-cols-12 gap-16 relative">
         <div className="md:col-span-5">
           <Reveal>
-            <Eyebrow>Why Cryptora</Eyebrow>
+            <Eyebrow>Pourquoi Cryptora</Eyebrow>
             <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
-              Technology designed around <em className="italic text-[color:var(--primary)]">human</em> decisions.
+              Une technologie conçue autour des décisions <em className="italic text-[color:var(--primary)]">humaines</em>.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-[17px] text-[color:var(--body)] mt-8 max-w-md">
-              We believe finance should feel less like a cockpit and more like a quiet
-              studio. Cryptora brings the tools forward only when you need them.
+              Nous pensons que la finance devrait moins ressembler à un cockpit et plus à un studio silencieux. Cryptora met les outils en avant seulement quand vous en avez besoin.
             </p>
           </Reveal>
         </div>
@@ -447,12 +446,12 @@ export function Showcase() {
     <section className="py-32 md:py-40 bg-[color:var(--surface)] overflow-hidden">
       <div className="container-1400">
         <Reveal className="text-center max-w-2xl mx-auto">
-          <Eyebrow>Designed for clarity</Eyebrow>
+          <Eyebrow>Conçu pour la clarté</Eyebrow>
           <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
-            One surface for everything that matters.
+            Une surface pour tout ce qui compte.
           </h2>
           <p className="text-[17px] text-[color:var(--body)] mt-6">
-            A single, beautifully composed workspace - for research, automation and reflection.
+            Un espace de travail unique et magnifiquement composé - pour la recherche, l'automatisation et la réflexion.
           </p>
         </Reveal>
 
@@ -463,9 +462,9 @@ export function Showcase() {
             <div className="relative rounded-t-[28px] bg-[color:var(--foreground)] p-3 shadow-[var(--shadow-float)]">
               <div className="rounded-[20px] overflow-hidden bg-[color:var(--background)] aspect-[16/10] grid grid-cols-12">
                 <aside className="col-span-3 bg-[color:var(--surface)] p-5 border-r border-[color:var(--border-soft)] hidden sm:block">
-                  <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Workspace</div>
+                  <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Espace de travail</div>
                   <div className="mt-4 space-y-2 text-[13px]">
-                    {["Overview", "Research", "Strategies", "Automation", "Reports"].map((t, i) => (
+                    {["Aperçu", "Recherche", "Stratégies", "Automatisation", "Rapports"].map((t, i) => (
                       <div
                         key={t}
                         className={`px-3 py-2 rounded-lg ${i === 0 ? "bg-white hairline" : "text-[color:var(--body)]"}`}
@@ -478,16 +477,16 @@ export function Showcase() {
                 <div className="col-span-12 sm:col-span-9 p-6">
                   <div className="flex items-end justify-between">
                     <div>
-                      <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Overview</div>
-                      <div className="font-display text-3xl mt-1">Portfolio</div>
+                      <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Aperçu</div>
+                      <div className="font-display text-3xl mt-1">Portefeuille</div>
                     </div>
-                    <div className="text-xs text-[color:var(--body)]">Last 30 days</div>
+                    <div className="text-xs text-[color:var(--body)]">30 derniers jours</div>
                   </div>
                   <div className="grid grid-cols-3 gap-3 mt-5">
                     {[
-                      { l: "Value", v: "$248.9k", c: "+2.4%" },
-                      { l: "Volatility", v: "Low", c: "stable" },
-                      { l: "Yield", v: "5.8%", c: "+0.4%" },
+                      { l: "Valeur", v: "$248.9k", c: "+2.4%" },
+                      { l: "Volatilité", v: "Faible", c: "stable" },
+                      { l: "Rendement", v: "5.8%", c: "+0.4%" },
                     ].map((s) => (
                       <div key={s.l} className="rounded-xl hairline p-4 bg-white">
                         <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">{s.l}</div>
@@ -531,7 +530,7 @@ export function Showcase() {
               className="hidden md:block absolute -left-8 top-1/3 card-surface p-4 w-56 animate-float-y"
             >
               <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Notification</div>
-              <div className="text-[13px] mt-2">Yield strategy beat benchmark by +1.8%</div>
+              <div className="text-[13px] mt-2">La stratégie de rendement dépasse l'indice de référence de +1.8%</div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -541,9 +540,9 @@ export function Showcase() {
               className="hidden md:block absolute -right-6 bottom-16 card-surface p-4 w-60 animate-float-x"
             >
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">
-                <Bell size={12} /> Insight
+                <Bell size={12} /> Aperçu
               </div>
-              <div className="text-[13px] mt-2">Volatility easing - consider longer horizons.</div>
+              <div className="text-[13px] mt-2">Baisse de la volatilité - envisagez des horizons plus longs.</div>
             </motion.div>
           </div>
         </Reveal>
@@ -556,10 +555,10 @@ export function Showcase() {
 /* ---------------------------------- FAQ ----------------------------------- */
 export function FAQ() {
   const items = [
-    { q: "How does AI assist analysis?", a: "Cryptora blends market, on-chain and macro data to produce explainable signals. You always see the reasoning behind a suggestion - and stay in control of every action." },
-    { q: "Is the platform beginner friendly?", a: "Yes. The interface is designed to surface only what you need. Plain-language explanations sit beside every chart, signal and metric." },
-    { q: "How is security handled?", a: "Independent audits, hardware-grade key management and least-privilege access by default. You can revoke any session in one click." },
-    { q: "Can I access reports on mobile?", a: "The mobile experience mirrors the desktop one - same clarity, same speed, same calm." },
+    { q: "Comment l'IA aide-t-elle à l'analyse ?", a: "Cryptora mélange les données de marché, on-chain et macro pour produire des signaux explicables. Vous voyez toujours le raisonnement derrière une suggestion - et gardez le contrôle de chaque action." },
+    { q: "La plateforme est-elle adaptée aux débutants ?", a: "Oui. L'interface est conçue pour ne faire ressortir que ce dont vous avez besoin. Des explications en langage clair accompagnent chaque graphique, signal et métrique." },
+    { q: "Comment la sécurité est-elle gérée ?", a: "Audits indépendants, gestion des clés au niveau matériel et accès au moindre privilège par défaut. Vous pouvez révoquer n'importe quelle session en un clic." },
+    { q: "Puis-je accéder aux rapports sur mobile ?", a: "L'expérience mobile reflète celle du bureau - même clarté, même rapidité, même calme." },
   ];
   const [open, setOpen] = useState<number | null>(0);
   return (
@@ -568,7 +567,7 @@ export function FAQ() {
         <div className="md:col-span-4">
           <Reveal>
             <Eyebrow>Questions</Eyebrow>
-            <h2 className="font-display text-4xl md:text-5xl mt-6">Frequently asked.</h2>
+            <h2 className="font-display text-4xl md:text-5xl mt-6">Foire aux questions.</h2>
           </Reveal>
         </div>
         <div className="md:col-span-8">
@@ -618,15 +617,15 @@ export function FinalCTA({ onAuthOpen }: { onAuthOpen?: () => void }) {
       <motion.div style={{ scale, y }} className="container-1180 text-center relative z-10">
         <div className="absolute inset-0 -z-10 grain-bg blur-2xl opacity-80" />
         <Reveal>
-          <Eyebrow>Begin</Eyebrow>
+          <Eyebrow>Commencer</Eyebrow>
           <h2 className="font-display text-4xl md:text-5xl mt-8 text-balance leading-[1.02]">
-            Intelligence that <em className="italic text-[color:var(--primary)]">moves</em> with you.
+            L'intelligence qui <em className="italic text-[color:var(--primary)]">avance</em> avec vous.
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="text-[18px] text-[color:var(--body)] mt-8 max-w-xl mx-auto">
-            Experience a calmer, smarter approach to understanding digital finance - through
-            elegant technology designed to last.
+            Découvrez une approche plus calme et plus intelligente pour comprendre la finance numérique - grâce à
+            une technologie élégante conçue pour durer.
           </p>
         </Reveal>
         <Reveal delay={0.2}>
@@ -635,19 +634,19 @@ export function FinalCTA({ onAuthOpen }: { onAuthOpen?: () => void }) {
               onClick={onAuthOpen}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-14 px-7 rounded-full bg-[color:var(--foreground)] text-white text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-20px_rgba(17,17,17,0.5)]"
             >
-              Start today <ArrowRight size={16} />
+              Commencer aujourd'hui <ArrowRight size={16} />
             </button>
             <a
               href="#contact"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-14 px-7 rounded-full bg-white hairline text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
             >
-              Book a demo
+              Réserver une démo
             </a>
           </div>
         </Reveal>
         <Reveal delay={0.3}>
           <div className="mt-10 text-[12px] uppercase tracking-[0.22em] text-[color:var(--body)]">
-            No card required · Cancel anytime · SOC 2 Type II
+            Aucune carte requise · Annulez à tout moment · SOC 2 Type II
           </div>
         </Reveal>
       </motion.div>
@@ -668,7 +667,7 @@ export function Footer() {
               <span className="font-display text-[22px] tracking-tight">Cryptora</span>
             </div>
             <p className="text-[14px] text-[color:var(--body)] mt-5 max-w-xs leading-relaxed">
-              AI-powered crypto trading intelligence. Trade smarter, think longer, build wealth intelligently.
+              Intelligence de trading crypto propulsée par l'IA. Tradez plus intelligemment, pensez à long terme, construisez la richesse intelligemment.
             </p>
           </div>
 
@@ -677,9 +676,9 @@ export function Footer() {
             <div className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--body)] mb-4">Navigation</div>
             <ul className="space-y-2.5">
               {[
-                { label: "Platform", id: "platform" },
-                { label: "Technology", id: "technology" },
-                { label: "AI", id: "ai" },
+                { label: "Plateforme", id: "platform" },
+                { label: "Technologie", id: "technology" },
+                { label: "IA", id: "ai" },
                 { label: "Contact", id: "contact" },
               ].map((item) => (
                 <li key={item.id}>
@@ -704,12 +703,12 @@ export function Footer() {
             <ul className="space-y-2.5">
               <li>
                 <Link to="/privacy" className="text-[14px] text-[color:var(--foreground)] hover:text-[color:var(--primary)] transition-colors">
-                  Privacy Policy
+                  Politique de confidentialité
                 </Link>
               </li>
               <li>
                 <Link to="/terms" className="text-[14px] text-[color:var(--foreground)] hover:text-[color:var(--primary)] transition-colors">
-                  Terms &amp; Conditions
+                  Termes et conditions
                 </Link>
               </li>
             </ul>
@@ -717,7 +716,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 pt-8 border-t border-[color:var(--border-soft)] flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="text-[13px] text-[color:var(--body)]">&copy; {new Date().getFullYear()} Cryptora. All rights reserved.</div>
+          <div className="text-[13px] text-[color:var(--body)]">&copy; {new Date().getFullYear()} Cryptora. Tous droits réservés.</div>
           <div className="flex items-center gap-3">
             <button onClick={() => window.open('https://twitter.com', '_blank')} className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)] transition-colors">
               <Twitter size={14} />

@@ -31,9 +31,9 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
   }, []);
 
   const links = [
-    { label: "Platform", id: "platform" },
-    { label: "Technology", id: "technology" },
-    { label: "AI", id: "ai" },
+    { label: "Plateforme", id: "platform" },
+    { label: "Technologie", id: "technology" },
+    { label: "IA", id: "ai" },
     { label: "Contact", id: "contact" },
   ];
 
@@ -115,13 +115,13 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
                 onClick={() => { if (onAuthOpen) onAuthOpen(); }}
                 className="inline-flex items-center h-10 px-4 text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors cursor-pointer"
               >
-                Sign in
+                Se connecter
               </button>
               <button
                 onClick={() => { if (onAuthOpen) onAuthOpen(); }}
                 className="inline-flex items-center h-10 px-5 rounded-full bg-[color:var(--foreground)] text-white text-[13px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(17,17,17,0.4)] cursor-pointer"
               >
-                Get started
+                Commencer
               </button>
             </div>
 
@@ -150,7 +150,7 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
               }}
               className="inline-flex items-center h-10 px-5 rounded-full bg-[color:var(--surface)] text-[color:var(--foreground)] text-[13px] font-medium transition-all hover:bg-[color:var(--border-soft)] cursor-pointer"
             >
-              Log out
+              Se déconnecter
             </button>
           </div>
         )}
@@ -193,13 +193,13 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
                 onClick={() => { setMobileMenuOpen(false); if (onAuthOpen) onAuthOpen(); }}
                 className="w-full inline-flex items-center justify-center h-12 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--foreground)] font-medium"
               >
-                Sign in
+                Se connecter
               </button>
               <button
                 onClick={() => { setMobileMenuOpen(false); if (onAuthOpen) onAuthOpen(); }}
                 className="w-full inline-flex items-center justify-center h-12 rounded-full bg-[color:var(--foreground)] text-white font-medium shadow-[0_10px_30px_-10px_rgba(17,17,17,0.4)]"
               >
-                Get started
+                Commencer
               </button>
             </div>
           </motion.div>
