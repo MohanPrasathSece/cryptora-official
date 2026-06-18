@@ -13,9 +13,7 @@ import {
   TrendingUp,
   Layers,
   CircleDot,
-  Globe2,
   Twitter,
-  Github,
   Linkedin,
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -728,80 +726,72 @@ export function FinalCTA() {
 
 /* --------------------------------- Footer --------------------------------- */
 export function Footer() {
-  const cols = [
-    { h: "Platform", l: ["Overview", "Dashboard", "AI Assistant", "Automation"] },
-    { h: "Technology", l: ["AI Models", "Infrastructure", "API", "Changelog"] },
-    { h: "Company", l: ["About", "Careers", "Press", "Contact"] },
-    { h: "Resources", l: ["Blog", "Research", "Guides", "Help center"] },
-    { h: "Support", l: ["Status", "Documentation", "Community", "Contact"] },
-    { h: "Legal", l: ["Privacy", "Terms", "Security", "Compliance"] },
-  ];
   return (
-    <footer className="pt-24 pb-12 border-t border-[color:var(--border-soft)] bg-[color:var(--background)]">
+    <footer className="pt-20 pb-10 border-t border-[color:var(--border-soft)] bg-[color:var(--background)]">
       <div className="container-1400">
         <div className="grid md:grid-cols-12 gap-12">
-          <div className="md:col-span-3">
+          {/* Brand */}
+          <div className="md:col-span-4">
             <div className="flex items-center gap-2.5">
-              <span className="relative grid place-items-center size-8 rounded-full bg-[color:var(--foreground)]">
-                <span className="size-2.5 rounded-full bg-[color:var(--primary-soft)]" />
-              </span>
+              <img src="/logo.png" alt="Crypto AI Logo" className="size-9 rounded-xl object-cover" />
               <span className="font-display text-[22px] tracking-tight">Crypto AI</span>
             </div>
-            <p className="text-[14px] text-[color:var(--body)] mt-5 max-w-xs">
-              Intelligent digital finance, designed with care.
+            <p className="text-[14px] text-[color:var(--body)] mt-5 max-w-xs leading-relaxed">
+              AI-powered crypto trading intelligence. Trade smarter, think longer, build wealth intelligently.
             </p>
-            <div className="mt-8">
-              <div className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--body)]">Newsletter</div>
-              <form className="mt-3 flex items-center rounded-full hairline bg-white pl-4 pr-1 py-1 max-w-xs">
-                <input
-                  type="email"
-                  placeholder="you@studio.com"
-                  className="flex-1 bg-transparent text-[14px] outline-none py-2"
-                />
-                <button className="h-9 px-4 rounded-full bg-[color:var(--foreground)] text-white text-[13px]">
-                  Join
-                </button>
-              </form>
-            </div>
           </div>
 
-          <div className="md:col-span-9 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8">
-            {cols.map((c) => (
-              <div key={c.h}>
-                <div className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--body)]">{c.h}</div>
-                <ul className="mt-4 space-y-2.5">
-                  {c.l.map((i) => {
-                    const isPrivacy = i === "Privacy";
-                    const isTerms = i === "Terms";
-                    const href = isPrivacy ? "/privacy" : isTerms ? "/terms" : "#";
-                    return (
-                      <li key={i}>
-                        <Link to={href} className="text-[14px] text-[color:var(--foreground)] hover:text-[color:var(--primary)] transition-colors">
-                          {i}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ))}
+          {/* Navigation */}
+          <div className="md:col-span-4">
+            <div className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--body)] mb-4">Navigation</div>
+            <ul className="space-y-2.5">
+              {[
+                { label: "Platform", id: "platform" },
+                { label: "Technology", id: "technology" },
+                { label: "AI", id: "ai" },
+                { label: "Contact", id: "contact" },
+              ].map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    onClick={(e) => {
+                      const target = document.getElementById(item.id);
+                      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: "smooth" }); }
+                    }}
+                    className="text-[14px] text-[color:var(--foreground)] hover:text-[color:var(--primary)] transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div className="md:col-span-4">
+            <div className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--body)] mb-4">Legal</div>
+            <ul className="space-y-2.5">
+              <li>
+                <Link to="/privacy" className="text-[14px] text-[color:var(--foreground)] hover:text-[color:var(--primary)] transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="text-[14px] text-[color:var(--foreground)] hover:text-[color:var(--primary)] transition-colors">
+                  Terms &amp; Conditions
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-[color:var(--border-soft)] flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="text-[13px] text-[color:var(--body)]">© {new Date().getFullYear()} Crypto AI Labs, Inc. All rights reserved.</div>
+        <div className="mt-14 pt-8 border-t border-[color:var(--border-soft)] flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div className="text-[13px] text-[color:var(--body)]">&copy; {new Date().getFullYear()} Crypto AI. All rights reserved.</div>
           <div className="flex items-center gap-3">
-            <button className="inline-flex items-center gap-2 text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)]">
-              <Globe2 size={14} /> English
-            </button>
-            <span className="text-[color:var(--border)]">·</span>
-            <a href="#" className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)]">
+            <a href="#" className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)] transition-colors">
               <Twitter size={14} />
             </a>
-            <a href="#" className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)]">
-              <Github size={14} />
-            </a>
-            <a href="#" className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)]">
+            <a href="#" className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)] transition-colors">
               <Linkedin size={14} />
             </a>
           </div>
