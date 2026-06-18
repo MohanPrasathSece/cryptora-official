@@ -143,7 +143,7 @@ export function Home() {
       <Process />
       <WhyUs />
       <FAQ />
-      <FinalCTA />
+      <FinalCTA onAuthOpen={() => setAuthOpen(true)} />
       
       {/* Contact Form Section */}
       <section id="contact" className="py-24 bg-white/5 relative z-10">

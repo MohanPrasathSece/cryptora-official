@@ -115,7 +115,7 @@ export function Overview() {
           </Reveal>
           <Reveal delay={0.2}>
             <a
-              href="#"
+              href="#technology"
               className="inline-flex items-center gap-2 mt-10 text-[14px] text-[color:var(--foreground)] group"
             >
               Learn more
@@ -607,7 +607,7 @@ export function FAQ() {
 }
 
 /* --------------------------------- Final CTA ------------------------------ */
-export function FinalCTA() {
+export function FinalCTA({ onAuthOpen }: { onAuthOpen?: () => void }) {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const scale = useTransform(scrollYProgress, [0.8, 1], [0.95, 1.05]);
@@ -631,14 +631,14 @@ export function FinalCTA() {
         </Reveal>
         <Reveal delay={0.2}>
           <div className="mt-12 flex items-center justify-center gap-3 flex-wrap">
-            <a
-              href="#"
+            <button
+              onClick={onAuthOpen}
               className="inline-flex items-center gap-2 h-14 px-7 rounded-full bg-[color:var(--foreground)] text-white text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-20px_rgba(17,17,17,0.5)]"
             >
               Start today <ArrowRight size={16} />
-            </a>
+            </button>
             <a
-              href="#"
+              href="#contact"
               className="inline-flex items-center gap-2 h-14 px-7 rounded-full bg-white hairline text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
             >
               Book a demo
@@ -719,12 +719,12 @@ export function Footer() {
         <div className="mt-14 pt-8 border-t border-[color:var(--border-soft)] flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="text-[13px] text-[color:var(--body)]">&copy; {new Date().getFullYear()} Cryptora. All rights reserved.</div>
           <div className="flex items-center gap-3">
-            <a href="#" className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)] transition-colors">
+            <button onClick={() => window.open('https://twitter.com', '_blank')} className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)] transition-colors">
               <Twitter size={14} />
-            </a>
-            <a href="#" className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)] transition-colors">
+            </button>
+            <button onClick={() => window.open('https://linkedin.com', '_blank')} className="size-9 rounded-full grid place-items-center hairline hover:bg-[color:var(--hover)] transition-colors">
               <Linkedin size={14} />
-            </a>
+            </button>
           </div>
         </div>
       </div>
