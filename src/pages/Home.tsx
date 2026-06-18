@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import { useState } from "react";
 
 import { Nav } from "@/components/landing/Nav";
-import { FloatingDashboard } from "@/components/landing/Dashboard";
+import { MacbookCandlestick } from "@/components/MacbookCandlestick";
 import { TickerTape } from "@/components/landing/Trading";
 import {
   TrustBar,
@@ -19,26 +19,8 @@ import {
   FinalCTA,
   Footer,
 } from "@/components/landing/Sections";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Lumen — Intelligent Digital Finance" },
-      {
-        name: "description",
-        content:
-          "A calm, AI-powered platform for understanding and growing your digital assets — designed for clarity, built for confidence.",
-      },
-      { property: "og:title", content: "Lumen — Intelligent Digital Finance" },
-      {
-        property: "og:description",
-        content:
-          "Build smarter financial strategies using AI-powered insights, automation, and real-time analytics in a beautifully designed platform.",
-      },
-    ],
-  }),
-  component: Index,
-});
+import { ContactForm } from "@/components/ContactForm";
+import { AuthModal } from "@/components/AuthModal";
 
 function HeadlineWord({ children, delay }: { children: React.ReactNode; delay: number }) {
   return (
@@ -55,14 +37,13 @@ function HeadlineWord({ children, delay }: { children: React.ReactNode; delay: n
   );
 }
 
-function Hero() {
+function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
   const line1 = ["Trade", "smarter."];
   const line2 = ["Think", "longer."];
   const line3 = ["Build", "wealth", "intelligently."];
 
   return (
-    <section className="relative min-h-screen pt-32 md:pt-40 pb-24 noise grain-bg overflow-hidden">
-      {/* subtle dot grid */}
+    <section className="relative min-h-screen flex flex-col justify-center pt-32 md:pt-40 pb-24 noise grain-bg overflow-hidden">
       <div className="absolute inset-0 dot-grid opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)] pointer-events-none" />
 
       <div className="container-1400 relative grid md:grid-cols-12 gap-12 md:gap-8 items-center">
@@ -74,7 +55,7 @@ function Hero() {
             className="inline-flex items-center gap-2 rounded-full bg-white hairline px-3 py-1.5 text-[12px]"
           >
             <span className="size-1.5 rounded-full bg-[color:var(--primary)] animate-pulse-soft" />
-            <span className="text-[color:var(--body)]">Now live · Lumen AI 2.0</span>
+            <span className="text-[color:var(--body)]">Now live · Crypto AI AI 2.0</span>
           </motion.div>
 
           <h1 className="font-display text-[64px] sm:text-[84px] md:text-[92px] leading-[0.98] tracking-[-0.04em] mt-8">
@@ -122,49 +103,42 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 1.45 }}
-            className="mt-10 flex items-center gap-3 flex-wrap"
+            className="mt-10 flex items-center gap-3 flex-wrap relative z-20"
           >
-            <a
-              href="#"
+            <button
+              onClick={onAuthOpen}
               className="group inline-flex items-center gap-2 h-14 px-7 rounded-full bg-[color:var(--foreground)] text-white text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-20px_rgba(17,17,17,0.5)]"
             >
-              Start free
+              Sign Up
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-            </a>
-            <a
-              href="#"
+            </button>
+            <button
+              onClick={onAuthOpen}
               className="inline-flex items-center gap-2 h-14 px-7 rounded-full bg-white hairline text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
             >
-              Explore platform
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.7 }}
-            className="mt-10 text-[12px] uppercase tracking-[0.22em] text-[color:var(--body)]"
-          >
-            Trusted by investors, analysts and innovators worldwide
+              Log In
+            </button>
           </motion.div>
         </div>
 
         <div className="md:col-span-6">
-          <FloatingDashboard />
+          <MacbookCandlestick />
         </div>
       </div>
     </section>
   );
 }
 
-function Index() {
+export function Home() {
+  const [authOpen, setAuthOpen] = useState(false);
+
   return (
     <main className="bg-[color:var(--background)] text-[color:var(--foreground)]">
-      <Nav />
-      <div className="fixed top-16 md:top-20 inset-x-0 z-40">
+      <Nav onAuthOpen={() => setAuthOpen(true)} />
+      <div className="fixed top-16 md:top-20 inset-x-0 z-40 pointer-events-none">
         <TickerTape />
       </div>
-      <Hero />
+      <Hero onAuthOpen={() => setAuthOpen(true)} />
       <TrustBar />
       <Overview />
       <FeatureGrid />
@@ -176,7 +150,16 @@ function Index() {
       <Testimonials />
       <FAQ />
       <FinalCTA />
+      
+      {/* Contact Form Section */}
+      <section className="py-24 bg-white/5 relative z-10">
+        <div className="container-1400">
+          <ContactForm />
+        </div>
+      </section>
+
       <Footer />
+      <AuthModal isOpen={authOpen} onOpenChange={setAuthOpen} />
     </main>
   );
 }

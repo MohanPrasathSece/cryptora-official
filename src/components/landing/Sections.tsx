@@ -193,7 +193,7 @@ export function FeatureGrid() {
           </Reveal>
 
           <Reveal delay={0.05} className="md:col-span-2">
-            <FeatureCard icon={<Workflow size={18} />} title="Automation" body="Set rules in plain language. Lumen executes the boring parts." />
+            <FeatureCard icon={<Workflow size={18} />} title="Automation" body="Set rules in plain language. Crypto AI executes the boring parts." />
           </Reveal>
 
           <Reveal delay={0.1} className="md:col-span-2">
@@ -259,7 +259,7 @@ export function AISection() {
                   <span>•••</span>
                 </div>
                 <div className="mt-6">
-                  <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Lumen AI</div>
+                  <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Crypto AI AI</div>
                   <div className="font-display text-3xl mt-2">Good morning, Sara.</div>
                   <div className="text-xs text-[color:var(--body)] mt-2">
                     Three insights ready for review.
@@ -300,8 +300,8 @@ export function AISection() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-[17px] text-[color:var(--body)] mt-6 max-w-md">
-              Lumen AI reads the market so you don’t have to. It studies, summarises, and
-              quietly nudges — leaving every decision exactly where it belongs: with you.
+              Crypto AI AI reads the market so you don’t have to. It studies, summarises, and
+              quietly nudges - leaving every decision exactly where it belongs: with you.
             </p>
           </Reveal>
           <div className="mt-10 divide-y divide-[color:var(--border-soft)]">
@@ -436,7 +436,7 @@ export function WhyUs() {
       <div className="container-1400 grid md:grid-cols-12 gap-16">
         <div className="md:col-span-5">
           <Reveal>
-            <Eyebrow>Why Lumen</Eyebrow>
+            <Eyebrow>Why Crypto AI</Eyebrow>
             <h2 className="font-display text-5xl md:text-6xl mt-6 text-balance">
               Technology designed around <em className="italic text-[color:var(--primary)]">human</em> decisions.
             </h2>
@@ -444,7 +444,7 @@ export function WhyUs() {
           <Reveal delay={0.1}>
             <p className="text-[17px] text-[color:var(--body)] mt-8 max-w-md">
               We believe finance should feel less like a cockpit and more like a quiet
-              studio. Lumen brings the tools forward only when you need them.
+              studio. Crypto AI brings the tools forward only when you need them.
             </p>
           </Reveal>
         </div>
@@ -475,7 +475,7 @@ export function Showcase() {
             One surface for everything that matters.
           </h2>
           <p className="text-[17px] text-[color:var(--body)] mt-6">
-            A single, beautifully composed workspace — for research, automation and reflection.
+            A single, beautifully composed workspace - for research, automation and reflection.
           </p>
         </Reveal>
 
@@ -566,7 +566,7 @@ export function Showcase() {
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">
                 <Bell size={12} /> Insight
               </div>
-              <div className="text-[13px] mt-2">Volatility easing — consider longer horizons.</div>
+              <div className="text-[13px] mt-2">Volatility easing - consider longer horizons.</div>
             </motion.div>
           </div>
         </Reveal>
@@ -579,7 +579,7 @@ export function Showcase() {
 export function Testimonials() {
   const items = [
     {
-      q: "Lumen feels like the first finance product that respects my attention.",
+      q: "Crypto AI feels like the first finance product that respects my attention.",
       n: "Mira Halvorsen",
       r: "Portfolio analyst",
     },
@@ -631,10 +631,10 @@ export function Testimonials() {
 /* ---------------------------------- FAQ ----------------------------------- */
 export function FAQ() {
   const items = [
-    { q: "How does AI assist analysis?", a: "Lumen blends market, on-chain and macro data to produce explainable signals. You always see the reasoning behind a suggestion — and stay in control of every action." },
+    { q: "How does AI assist analysis?", a: "Crypto AI blends market, on-chain and macro data to produce explainable signals. You always see the reasoning behind a suggestion - and stay in control of every action." },
     { q: "Is the platform beginner friendly?", a: "Yes. The interface is designed to surface only what you need. Plain-language explanations sit beside every chart, signal and metric." },
     { q: "How is security handled?", a: "Independent audits, hardware-grade key management and least-privilege access by default. You can revoke any session in one click." },
-    { q: "Can I access reports on mobile?", a: "The mobile experience mirrors the desktop one — same clarity, same speed, same calm." },
+    { q: "Can I access reports on mobile?", a: "The mobile experience mirrors the desktop one - same clarity, same speed, same calm." },
   ];
   const [open, setOpen] = useState<number | null>(0);
   return (
@@ -695,7 +695,7 @@ export function FinalCTA() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="text-[18px] text-[color:var(--body)] mt-8 max-w-xl mx-auto">
-            Experience a calmer, smarter approach to understanding digital finance — through
+            Experience a calmer, smarter approach to understanding digital finance - through
             elegant technology designed to last.
           </p>
         </Reveal>
@@ -744,7 +744,7 @@ export function Footer() {
               <span className="relative grid place-items-center size-8 rounded-full bg-[color:var(--foreground)]">
                 <span className="size-2.5 rounded-full bg-[color:var(--primary-soft)]" />
               </span>
-              <span className="font-display text-[22px] tracking-tight">Lumen</span>
+              <span className="font-display text-[22px] tracking-tight">Crypto AI</span>
             </div>
             <p className="text-[14px] text-[color:var(--body)] mt-5 max-w-xs">
               Intelligent digital finance, designed with care.
@@ -783,7 +783,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-[color:var(--border-soft)] flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="text-[13px] text-[color:var(--body)]">© {new Date().getFullYear()} Lumen Labs, Inc. All rights reserved.</div>
+          <div className="text-[13px] text-[color:var(--body)]">© {new Date().getFullYear()} Crypto AI Labs, Inc. All rights reserved.</div>
           <div className="flex items-center gap-3">
             <button className="inline-flex items-center gap-2 text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)]">
               <Globe2 size={14} /> English

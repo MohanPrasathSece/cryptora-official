@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
-export function Nav() {
+export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -24,11 +24,9 @@ export function Nav() {
       }`}
     >
       <div className="container-1400 flex h-16 md:h-20 items-center justify-between">
-        <a href="#" className="flex items-center gap-2.5">
-          <span className="relative grid place-items-center size-8 rounded-full bg-[color:var(--foreground)]">
-            <span className="size-2.5 rounded-full bg-[color:var(--primary-soft)]" />
-          </span>
-          <span className="font-display text-[22px] tracking-tight">Lumen</span>
+        <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center gap-2.5 cursor-pointer">
+          <img src="/logo.png" alt="Crypto AI Logo" className="size-8 rounded-full object-cover" />
+          <span className="font-display text-[22px] tracking-tight">Crypto AI</span>
         </a>
 
         <nav className="hidden md:flex items-center gap-9">
@@ -44,18 +42,18 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href="#"
-            className="hidden sm:inline-flex items-center h-10 px-4 text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors"
+          <button
+            onClick={(e) => { e.preventDefault(); if (onAuthOpen) onAuthOpen(); }}
+            className="hidden sm:inline-flex items-center h-10 px-4 text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors cursor-pointer"
           >
             Sign in
-          </a>
-          <a
-            href="#"
-            className="inline-flex items-center h-10 px-5 rounded-full bg-[color:var(--foreground)] text-white text-[13px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(17,17,17,0.4)]"
+          </button>
+          <button
+            onClick={(e) => { e.preventDefault(); if (onAuthOpen) onAuthOpen(); }}
+            className="inline-flex items-center h-10 px-5 rounded-full bg-[color:var(--foreground)] text-white text-[13px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(17,17,17,0.4)] cursor-pointer"
           >
             Get started
-          </a>
+          </button>
         </div>
       </div>
     </motion.header>
