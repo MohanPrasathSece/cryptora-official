@@ -21,7 +21,7 @@ import { AuthModal } from "@/components/AuthModal";
 
 function HeadlineWord({ children, delay }: { children: React.ReactNode; delay: number }) {
   return (
-    <span className="inline-block overflow-hidden align-bottom pr-[0.18em] last:pr-0">
+    <span className="inline-block overflow-hidden align-bottom pr-[0.18em] last:pr-0 pt-2 pb-2 -mt-2 -mb-2">
       <motion.span
         className="inline-block"
         initial={{ y: "110%", opacity: 0 }}
