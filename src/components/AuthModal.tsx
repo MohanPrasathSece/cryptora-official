@@ -74,10 +74,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       let exists = !!localStorage.getItem(`user_${emailKey}`);
       if (!exists && token) {
         try {
-          const res = await fetch(
-            `/blob-store?prefix=users/${encodeURIComponent(emailKey)}`,
-            { headers: { authorization: `Bearer ${token}` } }
-          );
+          const res = await fetch(`/api/blob-list?prefix=users/${encodeURIComponent(emailKey)}`);
           if (res.ok) {
             const data = await res.json();
             if (data.blobs && data.blobs.length > 0) exists = true;
@@ -110,8 +107,16 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       // Always save locally to ensure auth works even if Blob fails
       localStorage.setItem(`user_${emailKey}`, userData);
 
-      // We removed the Vercel Blob fetch here to prevent 400 Bad Request console errors
-      // since the store is configured as Private.
+      if (token) {
+        try {
+          await fetch(`/api/blob-put?pathname=users/${encodeURIComponent(emailKey)}.json`, {
+            method: 'PUT',
+            body: userData
+          });
+        } catch (e) {
+          console.warn("Vercel Blob local proxy upload failed, but using local storage fallback.");
+        }
+      }
 
       toast.success("Account created! Welcome to Cryptora.");
       onOpenChange(false);
@@ -137,8 +142,17 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       const emailKey = loginData.email.trim().toLowerCase();
       let found = !!localStorage.getItem(`user_${emailKey}`);
 
-      // We removed the Vercel Blob fetch here to prevent 400 Bad Request console errors
-      // since the store is configured as Private.
+      if (!found && token) {
+        try {
+          const res = await fetch(`/api/blob-list?prefix=users/${encodeURIComponent(emailKey)}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.blobs && data.blobs.length > 0) found = true;
+          }
+        } catch (e) {
+          console.warn("Vercel Blob fetch failed. Checking local storage.");
+        }
+      }
 
       if (!found) {
         throw new Error("No account found with that email.");
