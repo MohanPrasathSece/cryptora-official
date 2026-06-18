@@ -140,8 +140,9 @@
 
 @utility font-display {
   font-family: var(--font-display);
-  font-feature-settings: "ss01";
-  letter-spacing: -0.04em;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  letter-spacing: -0.035em;
   line-height: 1.02;
 }
 
