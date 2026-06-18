@@ -100,7 +100,7 @@ export function Overview() {
         <div className="md:col-span-5">
           <Reveal>
             <Eyebrow>The Platform</Eyebrow>
-            <h2 className="font-display text-5xl md:text-6xl mt-6 text-balance">
+            <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
               Built around <em className="italic text-[color:var(--primary)]">simplicity</em>.
             </h2>
           </Reveal>
@@ -169,7 +169,7 @@ export function FeatureGrid() {
         <div className="max-w-2xl">
           <Reveal>
             <Eyebrow>Capabilities</Eyebrow>
-            <h2 className="font-display text-5xl md:text-6xl mt-6 text-balance">
+            <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
               A complete intelligence layer for your assets.
             </h2>
           </Reveal>
@@ -295,7 +295,7 @@ export function AISection() {
         <div className="md:col-span-6 order-1 md:order-2">
           <Reveal>
             <Eyebrow>Intelligence</Eyebrow>
-            <h2 className="font-display text-5xl md:text-6xl mt-6 text-balance">
+            <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
               An assistant that <em className="italic text-[color:var(--primary)]">thinks ahead</em>.
             </h2>
           </Reveal>
@@ -346,7 +346,7 @@ export function Process() {
       <div className="container-1400">
         <Reveal>
           <Eyebrow>How it works</Eyebrow>
-          <h2 className="font-display text-5xl md:text-6xl mt-6 max-w-xl">
+          <h2 className="font-display text-4xl md:text-5xl mt-6 max-w-xl">
             Set up in minutes. Refined for years.
           </h2>
         </Reveal>
@@ -411,7 +411,7 @@ export function Metrics() {
       <div className="container-1400 grid grid-cols-2 md:grid-cols-4 gap-y-14 gap-x-10">
         {items.map((m, i) => (
           <Reveal key={m.l} delay={i * 0.08} className="text-center md:text-left">
-            <div className="font-display text-6xl md:text-7xl">
+            <div className="font-display text-4xl md:text-5xl">
               <Counter to={m.v} prefix={m.prefix} suffix={m.suffix} />
             </div>
             <div className="mt-3 text-[13px] uppercase tracking-[0.18em] text-[color:var(--body)]">
@@ -438,7 +438,7 @@ export function WhyUs() {
         <div className="md:col-span-5">
           <Reveal>
             <Eyebrow>Why Crypto AI</Eyebrow>
-            <h2 className="font-display text-5xl md:text-6xl mt-6 text-balance">
+            <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
               Technology designed around <em className="italic text-[color:var(--primary)]">human</em> decisions.
             </h2>
           </Reveal>
@@ -472,7 +472,7 @@ export function Showcase() {
       <div className="container-1400">
         <Reveal className="text-center max-w-2xl mx-auto">
           <Eyebrow>Designed for clarity</Eyebrow>
-          <h2 className="font-display text-5xl md:text-6xl mt-6 text-balance">
+          <h2 className="font-display text-4xl md:text-5xl mt-6 text-balance">
             One surface for everything that matters.
           </h2>
           <p className="text-[17px] text-[color:var(--body)] mt-6">
@@ -600,7 +600,7 @@ export function Testimonials() {
       <div className="container-1400">
         <Reveal>
           <Eyebrow>Voices</Eyebrow>
-          <h2 className="font-display text-5xl md:text-6xl mt-6 max-w-2xl text-balance">
+          <h2 className="font-display text-4xl md:text-5xl mt-6 max-w-2xl text-balance">
             Trusted by people who value craft.
           </h2>
         </Reveal>
@@ -644,7 +644,7 @@ export function FAQ() {
         <div className="md:col-span-4">
           <Reveal>
             <Eyebrow>Questions</Eyebrow>
-            <h2 className="font-display text-5xl md:text-6xl mt-6">Frequently asked.</h2>
+            <h2 className="font-display text-4xl md:text-5xl mt-6">Frequently asked.</h2>
           </Reveal>
         </div>
         <div className="md:col-span-8">
@@ -690,7 +690,7 @@ export function FinalCTA() {
         <div className="absolute inset-0 -z-10 grain-bg blur-2xl opacity-80" />
         <Reveal>
           <Eyebrow>Begin</Eyebrow>
-          <h2 className="font-display text-6xl md:text-8xl mt-8 text-balance leading-[1.02]">
+          <h2 className="font-display text-4xl md:text-5xl mt-8 text-balance leading-[1.02]">
             Intelligence that <em className="italic text-[color:var(--primary)]">moves</em> with you.
           </h2>
         </Reveal>

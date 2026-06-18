@@ -230,8 +230,8 @@
   --color-ring: var(--primary);
   --color-hover: var(--hover);
 
-  --font-display: "Syne", "Space Grotesk", sans-serif;
-  --font-sans: "Inter", "Manrope", system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+  --font-sans: "Poppins", system-ui, sans-serif;
 
   --shadow-soft: 0 1px 2px rgba(17, 17, 17, 0.04), 0 8px 24px -12px rgba(17, 17, 17, 0.08);
   --shadow-float: 0 2px 4px rgba(17, 17, 17, 0.04), 0 24px 60px -20px rgba(17, 17, 17, 0.14);
@@ -329,10 +329,8 @@
 
 @utility font-display {
   font-family: var(--font-display);
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 144, "SOFT" 50;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 @utility text-balance {

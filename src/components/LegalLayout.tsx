@@ -47,7 +47,7 @@ export function LegalLayout({ title, lastUpdated, sections, children }: LegalLay
       <main className="pt-32 pb-24 md:pt-40">
         <div className="container-1180">
           <div className="mb-12 md:mb-20">
-            <h1 className="font-display text-4xl md:text-6xl tracking-tight mb-4">{title}</h1>
+            <h1 className="font-display text-3xl md:text-5xl tracking-tight mb-4">{title}</h1>
             <p className="text-[color:var(--body)]">Last Updated: {lastUpdated}</p>
           </div>
 

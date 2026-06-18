@@ -12,7 +12,7 @@ export function TradingView() {
       {/* Header Section */}
       <section className="py-16 md:py-24 px-6 relative overflow-hidden">
         <div className="container-1400 max-w-5xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 tracking-tight">
+          <h1 className="text-3xl md:text-5xl font-display font-bold mb-6 tracking-tight">
             Live Crypto Intelligence
           </h1>
           <p className="text-lg md:text-xl text-[color:var(--body)] max-w-2xl mx-auto">
