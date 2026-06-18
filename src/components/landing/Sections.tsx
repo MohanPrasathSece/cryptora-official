@@ -18,6 +18,7 @@ import {
   Github,
   Linkedin,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 /* --------------------------------- Reveal --------------------------------- */
 export function Reveal({
@@ -769,13 +770,18 @@ export function Footer() {
               <div key={c.h}>
                 <div className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--body)]">{c.h}</div>
                 <ul className="mt-4 space-y-2.5">
-                  {c.l.map((i) => (
-                    <li key={i}>
-                      <a href="#" className="text-[14px] text-[color:var(--foreground)] hover:text-[color:var(--primary)] transition-colors">
-                        {i}
-                      </a>
-                    </li>
-                  ))}
+                  {c.l.map((i) => {
+                    const isPrivacy = i === "Privacy";
+                    const isTerms = i === "Terms";
+                    const href = isPrivacy ? "/privacy" : isTerms ? "/terms" : "#";
+                    return (
+                      <li key={i}>
+                        <Link to={href} className="text-[14px] text-[color:var(--foreground)] hover:text-[color:var(--primary)] transition-colors">
+                          {i}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
