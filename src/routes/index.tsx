@@ -161,6 +161,9 @@ function Index() {
   return (
     <main className="bg-[color:var(--background)] text-[color:var(--foreground)]">
       <Nav />
+      <div className="fixed top-16 md:top-20 inset-x-0 z-40">
+        <TickerTape />
+      </div>
       <Hero />
       <TrustBar />
       <Overview />
