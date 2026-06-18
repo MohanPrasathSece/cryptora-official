@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
                   const pathname = url.searchParams.get("pathname");
                   if (!pathname) throw new Error("Missing pathname");
                   const blob = await put(pathname, body, {
-                    access: "private",
+                    access: "public",
                     token: env.VITE_BLOB_READ_WRITE_TOKEN,
                   });
                   res.setHeader("Content-Type", "application/json");
