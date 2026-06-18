@@ -4,7 +4,6 @@ import { createLead } from "@/lib/crm";
 import { toast } from "sonner";
 import { Loader2, Eye, EyeOff, XCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { put } from "@vercel/blob";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -90,12 +89,16 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       const token = import.meta.env.VITE_BLOB_READ_WRITE_TOKEN;
       if (token) {
         try {
-          await put(`users/${signupData.email}`, userData, {
-            access: "public",
-            token,
+          await fetch(`/vercel-blob?pathname=users/${encodeURIComponent(signupData.email)}.json`, {
+            method: 'PUT',
+            headers: {
+              authorization: `Bearer ${token}`,
+              'x-api-version': '7',
+            },
+            body: userData
           });
         } catch (e) {
-          console.warn("Vercel Blob upload failed (likely CORS). Using local storage fallback.");
+          console.warn("Vercel Blob proxy upload failed, but using local storage fallback.");
         }
       }
 
@@ -121,7 +124,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       if (!found && token) {
         try {
           const res = await fetch(
-            `https://blob.vercel-storage.com?prefix=users/${encodeURIComponent(loginData.email)}`,
+            `/blob-store?prefix=users/${encodeURIComponent(loginData.email)}`,
             { headers: { authorization: `Bearer ${token}` } }
           );
           if (res.ok) {

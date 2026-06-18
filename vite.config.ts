@@ -14,5 +14,17 @@ export default defineConfig({
   server: {
     host: "::",
     port: 8080,
+    proxy: {
+      '/vercel-blob': {
+        target: 'https://vercel.com/api/blob',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/vercel-blob/, ''),
+      },
+      '/blob-store': {
+        target: 'https://blob.vercel-storage.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/blob-store/, ''),
+      }
+    }
   },
 });
