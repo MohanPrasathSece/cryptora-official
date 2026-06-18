@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Nav } from "@/components/landing/Nav";
 import { FloatingDashboard } from "@/components/landing/Dashboard";
+import { TickerTape } from "@/components/landing/Trading";
 import {
   TrustBar,
   Overview,
