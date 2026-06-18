@@ -25,7 +25,7 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
     >
       <div className="container-1400 flex h-16 md:h-20 items-center justify-between">
         <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center gap-2.5 cursor-pointer">
-          <img src="/logo.png" alt="Crypto AI Logo" className="size-8 rounded-full object-cover" />
+          <img src="/logo.png" alt="Crypto AI Logo" className="size-9 rounded-xl object-cover" />
           <span className="font-display text-[22px] tracking-tight">Crypto AI</span>
         </a>
 
