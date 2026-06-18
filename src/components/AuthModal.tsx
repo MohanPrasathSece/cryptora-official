@@ -109,7 +109,6 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       // Always save locally to ensure auth works even if Blob fails
       localStorage.setItem(`user_${signupData.email}`, userData);
 
-      const token = import.meta.env.VITE_BLOB_READ_WRITE_TOKEN;
       if (token) {
         try {
           await fetch(`/vercel-blob?pathname=users/${encodeURIComponent(signupData.email)}.json`, {
