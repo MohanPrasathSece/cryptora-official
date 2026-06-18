@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { AnimatePresence } from "motion/react";
 
 export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,12 +43,14 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
 
     if (isHome) {
       // Already on home page — just scroll
+      setMobileMenuOpen(false);
       const target = document.getElementById(id);
       if (target) {
         target.scrollIntoView({ behavior: "smooth" });
       }
     } else {
       // On a different page — navigate home then scroll
+      setMobileMenuOpen(false);
       navigate("/");
       // Wait for navigation + render, then scroll
       setTimeout(() => {
@@ -105,10 +110,10 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
               ))}
             </nav>
 
-            <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
               <button
                 onClick={() => { if (onAuthOpen) onAuthOpen(); }}
-                className="hidden sm:inline-flex items-center h-10 px-4 text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors cursor-pointer"
+                className="inline-flex items-center h-10 px-4 text-[13px] text-[color:var(--body)] hover:text-[color:var(--foreground)] transition-colors cursor-pointer"
               >
                 Sign in
               </button>
@@ -119,6 +124,14 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
                 Get started
               </button>
             </div>
+
+            {/* Mobile Menu Toggle */}
+            <button 
+              className="md:hidden p-2 text-[color:var(--foreground)]"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Menu size={24} />
+            </button>
           </>
         ) : (
           <div className="flex items-center">
@@ -132,6 +145,7 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
                   }
                 }
                 setIsLoggedIn(false);
+                setMobileMenuOpen(false);
                 navigate("/");
               }}
               className="inline-flex items-center h-10 px-5 rounded-full bg-[color:var(--surface)] text-[color:var(--foreground)] text-[13px] font-medium transition-all hover:bg-[color:var(--border-soft)] cursor-pointer"
@@ -141,6 +155,56 @@ export function Nav({ onAuthOpen }: { onAuthOpen?: () => void }) {
           </div>
         )}
       </div>
+
+      {/* Fullscreen Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && !isLoggedIn && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[100] bg-[color:var(--background)] flex flex-col px-6 py-8"
+          >
+            <div className="flex items-center justify-between mb-12">
+              <a href="/" onClick={(e) => { setMobileMenuOpen(false); handleLogoClick(e); }} className="flex items-center gap-2.5 cursor-pointer">
+                <img src="/logo.png" alt="Cryptora Logo" className="h-9 w-auto object-contain" />
+              </a>
+              <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-[color:var(--foreground)]">
+                <X size={24} />
+              </button>
+            </div>
+            
+            <nav className="flex flex-col gap-6 text-xl font-medium mb-12">
+              {links.map((l) => (
+                <a
+                  key={l.id}
+                  href={`/#${l.id}`}
+                  onClick={(e) => handleNavClick(e, l.id)}
+                  className="text-[color:var(--foreground)] hover:text-[color:var(--primary)] transition-colors"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </nav>
+
+            <div className="flex flex-col gap-4 mt-auto">
+              <button
+                onClick={() => { setMobileMenuOpen(false); if (onAuthOpen) onAuthOpen(); }}
+                className="w-full inline-flex items-center justify-center h-12 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--foreground)] font-medium"
+              >
+                Sign in
+              </button>
+              <button
+                onClick={() => { setMobileMenuOpen(false); if (onAuthOpen) onAuthOpen(); }}
+                className="w-full inline-flex items-center justify-center h-12 rounded-full bg-[color:var(--foreground)] text-white font-medium shadow-[0_10px_30px_-10px_rgba(17,17,17,0.4)]"
+              >
+                Get started
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

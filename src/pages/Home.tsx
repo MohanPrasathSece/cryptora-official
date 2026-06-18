@@ -40,11 +40,11 @@ function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
   const line3 = ["Build", "wealth", "intelligently."];
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center pt-32 md:pt-40 pb-24 noise grain-bg overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-center pt-24 md:pt-40 pb-20 md:pb-24 noise grain-bg overflow-hidden">
       <div className="absolute inset-0 dot-grid opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)] pointer-events-none" />
 
-      <div className="container-1400 relative grid md:grid-cols-12 gap-12 md:gap-8 items-center">
-        <div className="md:col-span-6">
+      <div className="container-1400 relative grid md:grid-cols-12 gap-10 md:gap-8 items-center">
+        <div className="md:col-span-6 order-2 md:order-1 mt-8 md:mt-0">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -118,7 +118,7 @@ function Hero({ onAuthOpen }: { onAuthOpen: () => void }) {
           </motion.div>
         </div>
 
-        <div className="md:col-span-6">
+        <div className="md:col-span-6 order-1 md:order-2">
           <MacbookCandlestick />
         </div>
       </div>

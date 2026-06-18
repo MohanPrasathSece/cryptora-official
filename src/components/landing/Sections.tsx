@@ -97,8 +97,8 @@ export function Overview() {
   const y = useSpring(useTransform(scrollYProgress, [0, 1], [60, -60]), { stiffness: 60, damping: 20 });
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
   return (
-    <section id="platform" ref={sectionRef} className="py-32 md:py-40">
-      <div className="container-1400 grid md:grid-cols-12 gap-16 items-center">
+    <section id="platform" ref={sectionRef} className="py-24 md:py-40">
+      <div className="container-1400 grid md:grid-cols-12 gap-12 md:gap-16 items-center">
         <div className="md:col-span-5">
           <Reveal>
             <Eyebrow>The Platform</Eyebrow>
@@ -130,9 +130,9 @@ export function Overview() {
           <motion.div style={{ y, scale }}>
             <div className="relative">
               <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-br from-[color:var(--accent)]/60 to-transparent blur-2xl" />
-              <div className="card-surface relative overflow-hidden p-2">
-                <div className="rounded-[22px] bg-[color:var(--surface)] p-8 grid grid-cols-2 gap-5 min-h-[420px]">
-                  <div className="col-span-2 flex items-end justify-between">
+              <div className="card-surface relative overflow-hidden p-2 mt-12 md:mt-0">
+                <div className="rounded-[22px] bg-[color:var(--surface)] p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 min-h-[420px]">
+                  <div className="col-span-1 sm:col-span-2 flex items-end justify-between">
                     <div>
                       <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--body)]">Workspace</div>
                       <div className="font-display text-3xl mt-1">Today's view</div>
@@ -185,7 +185,7 @@ export function FeatureGrid() {
               title="AI Insights"
               body="Models trained on macro, on-chain and sentiment data surface what matters before it moves the market."
             >
-              <div className="mt-8 grid grid-cols-3 gap-3">
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {["Macro", "On-chain", "Sentiment"].map((t) => (
                   <div key={t} className="rounded-xl bg-[color:var(--surface)] px-3 py-2 text-xs text-[color:var(--body)]">
                     {t}
@@ -630,16 +630,16 @@ export function FinalCTA({ onAuthOpen }: { onAuthOpen?: () => void }) {
           </p>
         </Reveal>
         <Reveal delay={0.2}>
-          <div className="mt-12 flex items-center justify-center gap-3 flex-wrap">
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               onClick={onAuthOpen}
-              className="inline-flex items-center gap-2 h-14 px-7 rounded-full bg-[color:var(--foreground)] text-white text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-20px_rgba(17,17,17,0.5)]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-14 px-7 rounded-full bg-[color:var(--foreground)] text-white text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-20px_rgba(17,17,17,0.5)]"
             >
               Start today <ArrowRight size={16} />
             </button>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 h-14 px-7 rounded-full bg-white hairline text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-14 px-7 rounded-full bg-white hairline text-[15px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
             >
               Book a demo
             </a>

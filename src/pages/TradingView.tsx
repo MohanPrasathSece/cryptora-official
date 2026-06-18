@@ -68,7 +68,7 @@ export function TradingView() {
                 </li>
               </ul>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-4">
               <div className="bg-background rounded-2xl p-6 border border-[color:var(--border)] relative overflow-hidden group hover:border-[color:var(--primary)] transition-colors">
                 <div className="text-sm text-[color:var(--body)] mb-2">BTC/USD</div>
                 <div className="text-3xl font-mono font-bold">$64,230.00</div>
@@ -127,7 +127,7 @@ export function TradingView() {
             </button>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 title: "Whale Accumulation",
