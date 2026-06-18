@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Nav } from "@/components/landing/Nav";
 import { FloatingDashboard } from "@/components/landing/Dashboard";
+import { TickerTape } from "@/components/landing/Trading";
 import {
   TrustBar,
   Overview,
@@ -160,6 +161,9 @@ function Index() {
   return (
     <main className="bg-[color:var(--background)] text-[color:var(--foreground)]">
       <Nav />
+      <div className="fixed top-16 md:top-20 inset-x-0 z-40">
+        <TickerTape />
+      </div>
       <Hero />
       <TrustBar />
       <Overview />
