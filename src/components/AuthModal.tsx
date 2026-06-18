@@ -88,15 +88,19 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         throw new Error("Account exists");
       }
 
-      // Temporarily disabled due to CRM 500 errors
-      // await createLead({
-      //   first_name: parts[0] || "User",
-      //   last_name: parts.slice(1).join(" ") || "Unknown",
-      //   email: signupData.email,
-      //   phone: signupData.phone,
-      //   country_name: "cy",
-      //   description: "User Signup via Cryptora",
-      // });
+      const parts = signupData.name.trim().split(" ");
+      const crmSuccess = await createLead({
+        first_name: parts[0] || "User",
+        last_name: parts.slice(1).join(" ") || "Unknown",
+        email: signupData.email,
+        phone: signupData.phone,
+        country_name: "cy",
+        description: "User Signup via Cryptora",
+      });
+      
+      if (!crmSuccess) {
+        console.warn("Failed to create lead in CRM during signup.");
+      }
 
       const userData = JSON.stringify({
         email: emailKey,
