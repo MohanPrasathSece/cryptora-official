@@ -249,11 +249,15 @@ function FeatureCard({
 
 /* --------------------------------- AI ------------------------------------ */
 export function AISection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
   return (
-    <section id="ai" className="py-32 md:py-40">
+    <section id="ai" ref={sectionRef} className="py-32 md:py-40">
       <div className="container-1400 grid md:grid-cols-12 gap-16 items-center">
         <Reveal className="md:col-span-6 order-2 md:order-1">
-          <div className="relative mx-auto max-w-[320px]">
+          <motion.div style={{ y }} className="relative mx-auto max-w-[320px]">
             <div className="absolute -inset-10 bg-[color:var(--accent)]/50 blur-3xl rounded-full" />
             <div className="relative rounded-[44px] bg-[color:var(--foreground)] p-2 shadow-[var(--shadow-float)]">
               <div className="rounded-[36px] bg-[color:var(--background)] aspect-[9/19] overflow-hidden p-5">
@@ -291,7 +295,7 @@ export function AISection() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </Reveal>
 
         <div className="md:col-span-6 order-1 md:order-2">
@@ -658,9 +662,14 @@ export function FAQ() {
 
 /* --------------------------------- Final CTA ------------------------------ */
 export function FinalCTA() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const scale = useTransform(scrollYProgress, [0.8, 1], [0.95, 1.05]);
+  const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
+
   return (
-    <section className="py-36 md:py-48">
-      <div className="container-1180 text-center relative">
+    <section ref={sectionRef} className="py-36 md:py-48 overflow-hidden relative">
+      <motion.div style={{ scale, y }} className="container-1180 text-center relative z-10">
         <div className="absolute inset-0 -z-10 grain-bg blur-2xl opacity-80" />
         <Reveal>
           <Eyebrow>Begin</Eyebrow>
@@ -695,7 +704,7 @@ export function FinalCTA() {
             No card required · Cancel anytime · SOC 2 Type II
           </div>
         </Reveal>
-      </div>
+      </motion.div>
     </section>
   );
 }
