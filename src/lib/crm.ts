@@ -1,45 +1,88 @@
 export interface LeadData {
-  first_name: string;
-  last_name: string;
+  name?: string;
   email: string;
-  phone: string;
-  country_name?: string;
+  number?: string;
   description?: string;
-  custom_fields?: Record<string, string>;
+  amount?: string;
 }
 
-export async function createLead(data: LeadData) {
-  const url = import.meta.env.VITE_CRM_URL || "https://inwo.crmcore.me/api/lead_management/api/affiliates";
-  const token = import.meta.env.VITE_CRM_TOKEN || "AFF_1_92cbc1bc76284e19b711bab22587d75f";
+/**
+ * Normalises a Swiss phone number to the `0041XXXXXXXXX` format the CRM requires.
+ * Accepts: +41..., 41...(11 digits), 079..., 79...
+ */
+function formatSwissPhone(raw: string): string {
+  // Strip everything except digits and leading +
+  let phone = raw.replace(/[^0-9+]/g, "");
 
-  // Provide strict defaults to ensure CRM always accepts the lead
-  const safeFirstName = data.first_name?.trim() || "Test";
-  const safeLastName = data.last_name?.trim() || "User";
-  const safeEmail = data.email?.includes("@") ? data.email : `test${Math.floor(Math.random()*10000)}@example.com`;
-  
-  // CRM phone numbers usually require a specific format. If invalid/empty, provide a dummy.
-  let safePhone = data.phone?.replace(/[^0-9+]/g, "") || "";
-  if (safePhone.length < 7) safePhone = "+447700900000"; 
+  if (!phone) return "0000000000";
 
-  const payload: any = {
-    country_name: (data.country_name || "GB").toUpperCase(),
-    description: data.description || "Lead from Cryptora",
-    phone: safePhone,
-    email: safeEmail,
-    first_name: safeFirstName,
-    last_name: safeLastName,
-    password: "Password123!", // Often required by CRM APIs
-  };
-
-  if (data.custom_fields && Object.keys(data.custom_fields).length > 0) {
-    payload.custom_fields = data.custom_fields;
+  // +41... → 0041...
+  if (phone.startsWith("+")) {
+    phone = "00" + phone.slice(1);
   }
+
+  // 41XXXXXXXXX (11 digits, no leading 00) → 0041...
+  if (phone.startsWith("41") && phone.length === 11) {
+    phone = "00" + phone;
+  }
+
+  // Already correct
+  if (phone.startsWith("0041")) return phone;
+
+  // 07X... (Swiss local with leading 0) → 0041 + remove the leading 0
+  if (phone.startsWith("0") && !phone.startsWith("00")) {
+    phone = "0041" + phone.slice(1);
+    return phone;
+  }
+
+  // 7X... (Swiss local without leading 0) → 0041 + number
+  if (!phone.startsWith("00")) {
+    phone = "0041" + phone;
+  }
+
+  return phone;
+}
+
+/**
+ * Parses a full name string into { first_name, last_name }.
+ * Uses .trim() first to prevent leading spaces causing a blank first_name.
+ */
+function parseName(fullName?: string): { first_name: string; last_name: string } {
+  const [first_name, ...lastParts] = (fullName || "Unknown").trim().split(" ");
+  const last_name = lastParts.join(" ") || "Lead";
+  return { first_name: first_name || "Unknown", last_name };
+}
+
+export async function createLead(data: LeadData): Promise<boolean> {
+  const url =
+    import.meta.env.VITE_CRM_URL ||
+    "https://inwo.crmcore.me/api/lead_management/api/affiliates";
+  const token =
+    import.meta.env.VITE_CRM_TOKEN ||
+    "AFF_1_92cbc1bc76284e19b711bab22587d75f";
+
+  const { first_name, last_name } = parseName(data.name);
+  const phone = formatSwissPhone(data.number || "");
+
+  const payload = {
+    country_name: "ch",
+    description: data.description || "Signup Lead",
+    phone,
+    email: data.email,
+    first_name,
+    last_name,
+    custom_fields: {
+      Source_ID: "website",
+      How_Much_Invested: data.amount || "0",
+      Outline_Your_Case: data.description || "",
+    },
+  };
 
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        "authorization": token,
+        authorization: token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
@@ -48,26 +91,28 @@ export async function createLead(data: LeadData) {
     let responseBody: any = null;
     try {
       responseBody = await response.json();
-    } catch (e) {
-      // Ignore JSON parse errors
+    } catch {
+      // Not JSON — ignore
     }
 
     if (!response.ok) {
       const errorMsg = responseBody?.error || response.statusText;
       console.error("CRM API Error:", response.status, errorMsg);
-      
-      // If the CRM says the account (lead) already exists, treat it as a success for the UI
-      // so the user doesn't see an error when submitting the contact form again.
-      if (typeof errorMsg === 'string' && errorMsg.toLowerCase().includes("already exist")) {
+      if (
+        typeof errorMsg === "string" &&
+        errorMsg.toLowerCase().includes("already exist")
+      ) {
         return true;
       }
-      
       return false;
     }
 
-    if (responseBody && responseBody.error) {
+    if (responseBody?.error) {
       console.error("CRM API Error (200 OK but invalid):", responseBody.error);
-      if (typeof responseBody.error === 'string' && responseBody.error.toLowerCase().includes("already exist")) {
+      if (
+        typeof responseBody.error === "string" &&
+        responseBody.error.toLowerCase().includes("already exist")
+      ) {
         return true;
       }
       return false;
