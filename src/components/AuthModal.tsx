@@ -175,7 +175,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       const userData = JSON.stringify({
         email: emailKey,
         name: signupData.name,
-        phone: cleanPhone, countryCode: typeof formData !== 'undefined' ? formData.get('countryCode') : 'CH',          // store clean phone (no spaces)
+        phone: cleanPhone,          // store clean phone (no spaces)
         createdAt: new Date().toISOString(),
       });
 
