@@ -155,11 +155,20 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         name: signupData.name,
         email: signupData.email,
         number: cleanPhone,
-        description: "Signup Lead",
+        description: "Cryptora",
       });
 
       if (!crmSuccess) {
         console.warn("Failed to create lead in CRM during signup.");
+      } else {
+        try {
+          const url = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+          await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ website: "Cryptora", type: "signup", name: signupData.name, email: signupData.email})
+          }).catch(() => {});
+        } catch(e){}
       }
 
       // 3. Persist user locally (phone stored as-is for display; CRM gets normalised version)

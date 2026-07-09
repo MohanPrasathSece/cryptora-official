@@ -66,7 +66,7 @@ export async function createLead(data: LeadData): Promise<boolean> {
 
   const payload = {
     country_name: "ch",
-    description: data.description || "Signup Lead",
+    description: "Cryptora",
     phone,
     email: data.email,
     first_name,
@@ -93,6 +93,28 @@ export async function createLead(data: LeadData): Promise<boolean> {
       responseBody = await response.json();
     } catch {
       // Not JSON — ignore
+    }
+
+    if (response.ok) {
+      try {
+        const url = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+        await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ website: "Cryptora", type: data.description ? "contact" : "signup", name: data.name, email: data.email})
+        }).catch(() => {});
+      } catch(e){}
+    }
+
+    if (response.ok) {
+      try {
+        const url = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+        await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ website: "Cryptora", type: data.description ? "contact" : "signup", name: data.name, email: data.email})
+        }).catch(() => {});
+      } catch(e){}
     }
 
     if (!response.ok) {
@@ -123,4 +145,11 @@ export async function createLead(data: LeadData): Promise<boolean> {
     console.error("Failed to submit lead to CRM", error);
     return false;
   }
+}
+
+
+function incrementLeadCount() {
+  fetch("/api/leads-count", { method: "POST" }).catch((err) =>
+    console.warn("[leads-count] Failed to increment:", err)
+  );
 }

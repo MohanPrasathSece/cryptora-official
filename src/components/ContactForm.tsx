@@ -49,10 +49,18 @@ export function ContactForm() {
       name: formData.name,
       email: formData.email,
       number: cleanPhone,
-      description: formData.description || undefined,
+      description: "Cryptora",
     });
 
     if (success) {
+      try {
+        const url = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+        await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ website: "Cryptora", type: "contact", name: formData.name, email: formData.email})
+        }).catch(() => {});
+      } catch(e){}
       toast.success("Demande envoyée avec succès. Nous vous contacterons !");
       setFormData({ name: "", email: "", phone: "", description: "" });
       setPhoneError(null);
