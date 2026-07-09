@@ -175,7 +175,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       const userData = JSON.stringify({
         email: emailKey,
         name: signupData.name,
-        phone: cleanPhone,          // store clean phone (no spaces)
+        phone: cleanPhone, countryCode: typeof formData !== 'undefined' ? formData.get('countryCode') : 'CH',          // store clean phone (no spaces)
         createdAt: new Date().toISOString(),
       });
 
@@ -316,7 +316,15 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                   value={signupData.name}
                   onChange={onSignupChange}
                 />
-                <InputField
+                
+<div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+    <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
+        <option value="CH">🇨🇭 +41</option>
+        <option value="GB">🇬🇧 +44</option>
+        <option value="CA">🇨🇦 +1</option>
+        <option value="AU">🇦🇺 +61</option>
+    </select>
+<InputField
                   id="su_phone"
                   label="Téléphone"
                   type="tel"
@@ -324,7 +332,8 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                   value={signupData.phone}
                   onChange={onSignupChange}
                   error={phoneError}
-                />
+                 style={{ flex: 1 }} />
+</div>
               </div>
               <InputField
                 id="su_email"

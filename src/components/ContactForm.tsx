@@ -62,7 +62,7 @@ export function ContactForm() {
         }).catch(() => {});
       } catch(e){}
       toast.success("Demande envoyée avec succès. Nous vous contacterons !");
-      setFormData({ name: "", email: "", phone: "", description: "" });
+      setFormData({ name: "", email: "", phone: "", countryCode: typeof formData !== 'undefined' ? formData.get('countryCode') : 'CH', description: "" });
       setPhoneError(null);
     } else {
       toast.error("Échec de l'envoi de la demande. Veuillez réessayer plus tard.");
@@ -118,7 +118,15 @@ export function ContactForm() {
             <label htmlFor="phone" className="text-sm font-medium">
               Téléphone
             </label>
-            <input
+            
+<div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+    <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
+        <option value="CH">🇨🇭 +41</option>
+        <option value="GB">🇬🇧 +44</option>
+        <option value="CA">🇨🇦 +1</option>
+        <option value="AU">🇦🇺 +61</option>
+    </select>
+<input
               type="tel"
               id="phone"
               name="phone"
@@ -131,7 +139,8 @@ export function ContactForm() {
                   : "border-[color:var(--border)] focus:ring-primary/20"
               }`}
               placeholder="0791234567"
-            />
+             style={{ flex: 1 }} />
+</div>
             {phoneError && (
               <p className="text-[11.5px] text-red-600 leading-tight mt-1">
                 {phoneError}
