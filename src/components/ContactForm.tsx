@@ -60,7 +60,15 @@ export function ContactForm() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ website: "Cryptora", type: "contact", name: formData.name, email: formData.email})
         }).catch(() => {});
-      } catch(e){}
+      } catch(e){
+      const rawMsg = (e?.message || e?.toString() || "");
+      if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+        toast.error("You have already contacted us pls wait");
+        if (typeof setError === 'function') setError("You have already contacted us pls wait");
+        setLoading(false);
+        return;
+      }
+}
       toast.success("Demande envoyée avec succès. Nous vous contacterons !");
       setFormData({ name: "", email: "", phone: "", countryCode: typeof formData !== 'undefined' ? formData.get('countryCode') : 'CH', description: "" });
       setPhoneError(null);

@@ -118,6 +118,11 @@ export async function createLead(data: LeadData): Promise<boolean> {
     }
 
     if (!response.ok) {
+    const errorText = await response.clone().text().catch(()=>"");
+    if (errorText.toLowerCase().includes("already exist") || errorText.toLowerCase().includes("already exists")) {
+        throw new Error("Failed to create account: Account already exist!");
+    }
+
       const errorMsg = responseBody?.error || response.statusText;
       console.error("CRM API Error:", response.status, errorMsg);
       if (
