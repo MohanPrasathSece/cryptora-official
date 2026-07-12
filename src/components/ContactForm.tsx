@@ -61,21 +61,6 @@ export function ContactForm() {
     });
 
     if (success) {
-      try {
-        const url = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://lead-dashboard-orcin.vercel.app/api/increment";
-        await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ website: "Cryptora", type: "contact", name: formData.name, email: formData.email})
-        }).catch(() => {});
-      } catch (e: any) {
-      const rawMsg = (e?.message || e?.toString() || "");
-      if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
-        toast.success("Vous nous avez déjà contactés. Veuillez patienter.");
-        setLoading(false);
-        return;
-      }
-}
       toast.success("Demande envoyée avec succès. Nous vous contacterons !");
       setFormData({ name: "", email: "", phone: "", countryCode: "CH", description: "" });
       setPhoneError(null);

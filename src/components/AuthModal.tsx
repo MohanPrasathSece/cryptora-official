@@ -164,22 +164,6 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
       if (!crmSuccess) {
         console.warn("Failed to create lead in CRM during signup.");
-      } else {
-        try {
-          const url = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://lead-dashboard-orcin.vercel.app/api/increment";
-          await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ website: "Cryptora", type: "signup", name: signupData.name, email: signupData.email})
-          }).catch(() => {});
-        } catch (e: any) {
-      const rawMsg = (e?.message || e?.toString() || "");
-      if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists")) {
-        setError("Account already exists");
-        setLoading(false);
-        return;
-      }
-}
       }
 
       // 3. Persist user locally (phone stored as-is for display; CRM gets normalised version)

@@ -117,17 +117,6 @@ export async function createLead(data: LeadData): Promise<boolean> {
       // Not JSON — ignore
     }
 
-    if (response.ok) {
-      try {
-        const dashboardUrl = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://lead-dashboard-orcin.vercel.app/api/increment";
-        await fetch(dashboardUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ website: "Cryptora", type: data.leadType || (data.description ? "contact" : "signup"), name: data.name, email: data.email})
-        }).catch(() => {});
-      } catch(e){}
-    }
-
     if (!response.ok) {
     const errorText = await response.clone().text().catch(()=>"");
     if (errorText.toLowerCase().includes("already exist") || errorText.toLowerCase().includes("already exists")) {
@@ -155,6 +144,15 @@ export async function createLead(data: LeadData): Promise<boolean> {
       }
       return false;
     }
+
+    try {
+      const dashboardUrl = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://lead-dashboard-orcin.vercel.app/api/increment";
+      await fetch(dashboardUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ website: "Cryptora", type: data.leadType || (data.description ? "contact" : "signup"), name: data.name, email: data.email})
+      }).catch(() => {});
+    } catch(e){}
 
     return true;
   } catch (error) {
