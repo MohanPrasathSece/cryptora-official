@@ -5,14 +5,17 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { createLead } from "@/lib/crm";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { createLead, COUNTRY_PHONE_PATTERNS } from "@/lib/crm";
 import { toast } from "sonner";
 import { Loader2, Eye, EyeOff, XCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-// Swiss phone regex: accepts +41, 0041, or local 0/no-prefix formats
-const SWISS_PHONE_REGEX = /^(\+41|0041|0)?[1-9]\d{8}$/;
-
 interface AuthModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
@@ -94,6 +97,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
     name: "",
     email: "",
     phone: "",
+    countryCode: "CH",
   });
   const [loginData, setLoginData] = useState({ email: "" });
 
@@ -115,15 +119,13 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
     // Strip all whitespace from phone before validation
     const cleanPhone = signupData.phone.replace(/\s+/g, "");
 
-    // Swiss phone validation
     if (!cleanPhone) {
       setPhoneError("Veuillez entrer un numéro de téléphone");
       return;
     }
-    if (!SWISS_PHONE_REGEX.test(cleanPhone)) {
-      setPhoneError(
-        "Veuillez entrer un numéro suisse valide (ex: 079 123 45 67)"
-      );
+    const countryPattern = COUNTRY_PHONE_PATTERNS[signupData.countryCode];
+    if (countryPattern && !countryPattern.regex.test(cleanPhone)) {
+      setPhoneError(`Numéro invalide pour ce pays (ex: ${countryPattern.example})`);
       return;
     }
 
@@ -150,12 +152,14 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
       if (exists) throw new Error("Account exists");
 
-      // 2. Send lead to CRM (phone already validated, formatter runs inside createLead)
+      // 2. Send lead to CRM
       const crmSuccess = await createLead({
         name: signupData.name,
         email: signupData.email,
         number: cleanPhone,
+        countryCode: signupData.countryCode,
         description: "Cryptora",
+        leadType: "signup"
       });
 
       if (!crmSuccess) {
@@ -339,12 +343,33 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                 />
                 
 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-    <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
-        <option value="CH">🇨🇭 +41</option>
-        <option value="GB">🇬🇧 +44</option>
-        <option value="CA">🇨🇦 +1</option>
-        <option value="AU">🇦🇺 +61</option>
-    </select>
+    <Select value={signupData.countryCode} onValueChange={(val) => setSignupData(p => ({ ...p, countryCode: val }))}>
+      <SelectTrigger className="w-[110px] h-11 px-3.5 bg-[color:var(--surface)] border border-[color:var(--border)] text-[color:var(--foreground)] text-[14px] rounded-lg focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)]/30 focus:border-[color:var(--primary)] shadow-none transition-all">
+        <SelectValue placeholder="Pays" />
+      </SelectTrigger>
+      <SelectContent position="popper" side="bottom" className="bg-[color:var(--surface)] text-[color:var(--foreground)] border-[color:var(--border)] max-h-[250px] overflow-y-auto z-[9999] rounded-lg shadow-md">
+        <SelectItem value="CH">🇨🇭 +41</SelectItem>
+        <SelectItem value="FR">🇫🇷 +33</SelectItem>
+        <SelectItem value="BE">🇧🇪 +32</SelectItem>
+        <SelectItem value="CA">🇨🇦 +1</SelectItem>
+        <SelectItem value="US">🇺🇸 +1</SelectItem>
+        <SelectItem value="GB">🇬🇧 +44</SelectItem>
+        <SelectItem value="DE">🇩🇪 +49</SelectItem>
+        <SelectItem value="ES">🇪🇸 +34</SelectItem>
+        <SelectItem value="IT">🇮🇹 +39</SelectItem>
+        <SelectItem value="NL">🇳🇱 +31</SelectItem>
+        <SelectItem value="SE">🇸🇪 +46</SelectItem>
+        <SelectItem value="AU">🇦🇺 +61</SelectItem>
+        <SelectItem value="IN">🇮🇳 +91</SelectItem>
+        <SelectItem value="AE">🇦🇪 +971</SelectItem>
+        <SelectItem value="SG">🇸🇬 +65</SelectItem>
+        <SelectItem value="ZA">🇿🇦 +27</SelectItem>
+        <SelectItem value="BR">🇧🇷 +55</SelectItem>
+        <SelectItem value="MX">🇲🇽 +52</SelectItem>
+        <SelectItem value="JP">🇯🇵 +81</SelectItem>
+        <SelectItem value="CY">🇨🇾 +357</SelectItem>
+      </SelectContent>
+    </Select>
 <InputField
                   id="su_phone"
                   label="Téléphone"

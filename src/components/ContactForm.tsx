@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { createLead } from "@/lib/crm";
+import { createLead, COUNTRY_PHONE_PATTERNS } from "@/lib/crm";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -13,6 +20,7 @@ export function ContactForm() {
     name: "",
     email: "",
     phone: "",
+    countryCode: "CH",
     description: "",
   });
 
@@ -31,15 +39,13 @@ export function ContactForm() {
     // Strip all whitespace the user may have typed
     const cleanPhone = formData.phone.replace(/\s+/g, "");
 
-    // Real-time Swiss phone validation
     if (!cleanPhone) {
       setPhoneError("Veuillez entrer un numéro de téléphone");
       return;
     }
-    if (!SWISS_PHONE_REGEX.test(cleanPhone)) {
-      setPhoneError(
-        "Veuillez entrer un numéro suisse valide (ex: 079 123 45 67)"
-      );
+    const countryPattern = COUNTRY_PHONE_PATTERNS[formData.countryCode];
+    if (countryPattern && !countryPattern.regex.test(cleanPhone)) {
+      setPhoneError(`Numéro invalide pour ce pays (ex: ${countryPattern.example})`);
       return;
     }
 
@@ -49,7 +55,9 @@ export function ContactForm() {
       name: formData.name,
       email: formData.email,
       number: cleanPhone,
-      description: "Cryptora",
+      countryCode: formData.countryCode,
+      description: formData.description || "Cryptora",
+      leadType: "contact"
     });
 
     if (success) {
@@ -69,7 +77,7 @@ export function ContactForm() {
       }
 }
       toast.success("Demande envoyée avec succès. Nous vous contacterons !");
-      setFormData({ name: "", email: "", phone: "", countryCode: typeof formData !== 'undefined' ? formData.get('countryCode') : 'CH', description: "" });
+      setFormData({ name: "", email: "", phone: "", countryCode: "CH", description: "" });
       setPhoneError(null);
     } else {
       toast.error("Échec de l'envoi de la demande. Veuillez réessayer plus tard.");
@@ -127,29 +135,33 @@ export function ContactForm() {
             </label>
             
 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-    <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
-
-        <option value="CH">🇨🇭 +41</option>
-        <option value="FR">🇫🇷 +33</option>
-        <option value="BE">🇧🇪 +32</option>
-        <option value="CA">🇨🇦 +1</option>
-        <option value="US">🇺🇸 +1</option>
-        <option value="GB">🇬🇧 +44</option>
-        <option value="DE">🇩🇪 +49</option>
-        <option value="ES">🇪🇸 +34</option>
-        <option value="IT">🇮🇹 +39</option>
-        <option value="NL">🇳🇱 +31</option>
-        <option value="SE">🇸🇪 +46</option>
-        <option value="AU">🇦🇺 +61</option>
-        <option value="IN">🇮🇳 +91</option>
-        <option value="AE">🇦🇪 +971</option>
-        <option value="SG">🇸🇬 +65</option>
-        <option value="ZA">🇿🇦 +27</option>
-        <option value="BR">🇧🇷 +55</option>
-        <option value="MX">🇲🇽 +52</option>
-        <option value="JP">🇯🇵 +81</option>
-        <option value="CY">🇨🇾 +357</option>
-    </select>
+    <Select value={formData.countryCode} onValueChange={(val) => setFormData(p => ({ ...p, countryCode: val }))}>
+      <SelectTrigger className="w-[110px] h-11 px-3 bg-background border border-[color:var(--border)] text-[color:var(--foreground)] text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-none transition-colors">
+        <SelectValue placeholder="Pays" />
+      </SelectTrigger>
+      <SelectContent position="popper" side="bottom" className="bg-background text-[color:var(--foreground)] border-[color:var(--border)] max-h-[250px] overflow-y-auto z-[9999] rounded-lg shadow-md">
+        <SelectItem value="CH">🇨🇭 +41</SelectItem>
+        <SelectItem value="FR">🇫🇷 +33</SelectItem>
+        <SelectItem value="BE">🇧🇪 +32</SelectItem>
+        <SelectItem value="CA">🇨🇦 +1</SelectItem>
+        <SelectItem value="US">🇺🇸 +1</SelectItem>
+        <SelectItem value="GB">🇬🇧 +44</SelectItem>
+        <SelectItem value="DE">🇩🇪 +49</SelectItem>
+        <SelectItem value="ES">🇪🇸 +34</SelectItem>
+        <SelectItem value="IT">🇮🇹 +39</SelectItem>
+        <SelectItem value="NL">🇳🇱 +31</SelectItem>
+        <SelectItem value="SE">🇸🇪 +46</SelectItem>
+        <SelectItem value="AU">🇦🇺 +61</SelectItem>
+        <SelectItem value="IN">🇮🇳 +91</SelectItem>
+        <SelectItem value="AE">🇦🇪 +971</SelectItem>
+        <SelectItem value="SG">🇸🇬 +65</SelectItem>
+        <SelectItem value="ZA">🇿🇦 +27</SelectItem>
+        <SelectItem value="BR">🇧🇷 +55</SelectItem>
+        <SelectItem value="MX">🇲🇽 +52</SelectItem>
+        <SelectItem value="JP">🇯🇵 +81</SelectItem>
+        <SelectItem value="CY">🇨🇾 +357</SelectItem>
+      </SelectContent>
+    </Select>
 <input
               type="tel"
               id="phone"

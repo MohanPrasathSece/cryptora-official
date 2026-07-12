@@ -4,43 +4,63 @@ export interface LeadData {
   number?: string;
   description?: string;
   amount?: string;
+  countryCode?: string;
+  leadType?: "signup" | "contact";
 }
 
-/**
- * Normalises a Swiss phone number to the `0041XXXXXXXXX` format the CRM requires.
- * Accepts: +41..., 41...(11 digits), 079..., 79...
- */
-function formatSwissPhone(raw: string): string {
-  // Strip everything except digits and leading +
-  let phone = raw.replace(/[^0-9+]/g, "");
+export const COUNTRY_PHONE_PATTERNS: Record<string, { regex: RegExp; example: string }> = {
+  CH: { regex: /^(\+41|0041|0)?[1-9]\d{8}$/, example: "079 123 45 67" },
+  FR: { regex: /^(\+33|0033|0)[1-9]\d{8}$/, example: "06 12 34 56 78" },
+  BE: { regex: /^(\+32|0032|0)[1-9]\d{7,8}$/, example: "047 12 34 56" },
+  CA: { regex: /^(\+1|001)?\d{10}$/, example: "416 123 4567" },
+  US: { regex: /^(\+1|001)?\d{10}$/, example: "212 123 4567" },
+  GB: { regex: /^(\+44|0044|0)[1-9]\d{9}$/, example: "07123 456789" },
+  DE: { regex: /^(\+49|0049|0)[1-9]\d{10,11}$/, example: "0151 12345678" },
+  ES: { regex: /^(\+34|0034)?[67]\d{8}$/, example: "612 34 56 78" },
+  IT: { regex: /^(\+39|0039)?3\d{8,9}$/, example: "312 345 6789" },
+  NL: { regex: /^(\+31|0031|0)6\d{8}$/, example: "06 12345678" },
+  SE: { regex: /^(\+46|0046|0)7\d{8}$/, example: "070 123 45 67" },
+  AU: { regex: /^(\+61|0061|0)4\d{8}$/, example: "0412 345 678" },
+  IN: { regex: /^(\+91|0091)?[6-9]\d{9}$/, example: "91234 56789" },
+  AE: { regex: /^(\+971|00971|0)5\d{8}$/, example: "050 123 4567" },
+  SG: { regex: /^(\+65|0065)?[89]\d{7}$/, example: "8123 4567" },
+  ZA: { regex: /^(\+27|0027|0)[6-8]\d{8}$/, example: "071 234 5678" },
+  BR: { regex: /^(\+55|0055)?\d{10,11}$/, example: "11 91234 5678" },
+  MX: { regex: /^(\+52|0052)?\d{10}$/, example: "55 1234 5678" },
+  JP: { regex: /^(\+81|0081|0)[789]0\d{8}$/, example: "090 1234 5678" },
+  CY: { regex: /^(\+357|00357)?[9]\d{7}$/, example: "99 123456" }
+};
 
+const DIAL_CODES: Record<string, string> = {
+  CH: "41", FR: "33", BE: "32", CA: "1", US: "1", GB: "44",
+  DE: "49", ES: "34", IT: "39", NL: "31", SE: "46", AU: "61",
+  IN: "91", AE: "971", SG: "65", ZA: "27", BR: "55", MX: "52",
+  JP: "81", CY: "357"
+};
+
+/**
+ * Normalises a phone number for the CRM.
+ */
+function formatPhone(raw: string, countryCode: string): string {
+  let phone = raw.replace(/[^0-9+]/g, "");
   if (!phone) return "0000000000";
 
-  // +41... → 0041...
+  // If already starts with +, just replace with 00
   if (phone.startsWith("+")) {
-    phone = "00" + phone.slice(1);
+    return "00" + phone.slice(1);
   }
 
-  // 41XXXXXXXXX (11 digits, no leading 00) → 0041...
-  if (phone.startsWith("41") && phone.length === 11) {
-    phone = "00" + phone;
+  // If already starts with 00, return as is
+  if (phone.startsWith("00")) return phone;
+
+  const code = DIAL_CODES[countryCode.toUpperCase()] || "41";
+
+  // If it starts with 0, it's usually a local number, remove the 0
+  if (phone.startsWith("0")) {
+    return "00" + code + phone.slice(1);
   }
 
-  // Already correct
-  if (phone.startsWith("0041")) return phone;
-
-  // 07X... (Swiss local with leading 0) → 0041 + remove the leading 0
-  if (phone.startsWith("0") && !phone.startsWith("00")) {
-    phone = "0041" + phone.slice(1);
-    return phone;
-  }
-
-  // 7X... (Swiss local without leading 0) → 0041 + number
-  if (!phone.startsWith("00")) {
-    phone = "0041" + phone;
-  }
-
-  return phone;
+  return "00" + code + phone;
 }
 
 /**
@@ -62,15 +82,17 @@ export async function createLead(data: LeadData): Promise<boolean> {
     "AFF_1_92cbc1bc76284e19b711bab22587d75f";
 
   const { first_name, last_name } = parseName(data.name);
-  const phone = formatSwissPhone(data.number || "");
+  const countryCode = data.countryCode || "CH";
+  const phone = formatPhone(data.number || "", countryCode);
 
   const payload = {
-    country_name: "ch",
+    country_name: (data.countryCode || "CH").toUpperCase(),
     description: "Cryptora",
     phone,
     email: data.email,
     first_name,
     last_name,
+    password: "Password123!",
     custom_fields: {
       Source_ID: "website",
       How_Much_Invested: data.amount || "0",
@@ -97,22 +119,11 @@ export async function createLead(data: LeadData): Promise<boolean> {
 
     if (response.ok) {
       try {
-        const url = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://lead-dashboard-orcin.vercel.app/api/increment";
-        await fetch(url, {
+        const dashboardUrl = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://lead-dashboard-orcin.vercel.app/api/increment";
+        await fetch(dashboardUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ website: "Cryptora", type: data.description ? "contact" : "signup", name: data.name, email: data.email})
-        }).catch(() => {});
-      } catch(e){}
-    }
-
-    if (response.ok) {
-      try {
-        const url = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DASHBOARD_URL) || "https://lead-dashboard-orcin.vercel.app/api/increment";
-        await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ website: "Cryptora", type: data.description ? "contact" : "signup", name: data.name, email: data.email})
+          body: JSON.stringify({ website: "Cryptora", type: data.leadType || (data.description ? "contact" : "signup"), name: data.name, email: data.email})
         }).catch(() => {});
       } catch(e){}
     }
