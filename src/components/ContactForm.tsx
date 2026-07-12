@@ -128,10 +128,27 @@ export function ContactForm() {
             
 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
     <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
+
         <option value="CH">🇨🇭 +41</option>
-        <option value="GB">🇬🇧 +44</option>
+        <option value="FR">🇫🇷 +33</option>
+        <option value="BE">🇧🇪 +32</option>
         <option value="CA">🇨🇦 +1</option>
+        <option value="US">🇺🇸 +1</option>
+        <option value="GB">🇬🇧 +44</option>
+        <option value="DE">🇩🇪 +49</option>
+        <option value="ES">🇪🇸 +34</option>
+        <option value="IT">🇮🇹 +39</option>
+        <option value="NL">🇳🇱 +31</option>
+        <option value="SE">🇸🇪 +46</option>
         <option value="AU">🇦🇺 +61</option>
+        <option value="IN">🇮🇳 +91</option>
+        <option value="AE">🇦🇪 +971</option>
+        <option value="SG">🇸🇬 +65</option>
+        <option value="ZA">🇿🇦 +27</option>
+        <option value="BR">🇧🇷 +55</option>
+        <option value="MX">🇲🇽 +52</option>
+        <option value="JP">🇯🇵 +81</option>
+        <option value="CY">🇨🇾 +357</option>
     </select>
 <input
               type="tel"
