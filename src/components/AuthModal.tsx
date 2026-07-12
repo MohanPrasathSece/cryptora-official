@@ -32,6 +32,7 @@ function InputField({
   onChange,
   required = true,
   error,
+  style,
 }: {
   id: string;
   label: string;
@@ -41,11 +42,12 @@ function InputField({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   error?: string | null;
+  style?: React.CSSProperties;
 }) {
   const [showPw, setShowPw] = useState(false);
   const isPassword = type === "password";
   return (
-    <div className="space-y-1.5 text-left">
+    <div className="space-y-1.5 text-left" style={style}>
       <label
         htmlFor={id}
         className="text-[13px] font-medium text-[color:var(--foreground)]"
@@ -243,7 +245,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       onOpenChange(false);
       navigate("/trading");
     } catch (err: unknown) {
-      const rawMsg = (err?.message || err?.toString() || "");
+      const rawMsg = err instanceof Error ? err.message : String(err);
       if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists")) {
         setError("Account already exists");
         setLoading(false);
