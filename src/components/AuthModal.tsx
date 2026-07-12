@@ -168,11 +168,10 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ website: "Cryptora", type: "signup", name: signupData.name, email: signupData.email})
           }).catch(() => {});
-        } catch(e){
+        } catch (e: any) {
       const rawMsg = (e?.message || e?.toString() || "");
       if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists")) {
-        toast.error("Account already exists");
-        if (typeof setError === 'function') setError("Account already exists");
+        setError("Account already exists");
         setLoading(false);
         return;
       }
@@ -209,8 +208,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
     } catch (err: any) {
       const rawMsg = (err?.message || err?.toString() || "");
       if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists")) {
-        toast.error("Account already exists");
-        if (typeof setError === 'function') setError("Account already exists");
+        setError("Account already exists");
         setLoading(false);
         return;
       }
@@ -259,8 +257,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
     } catch (err: unknown) {
       const rawMsg = (err?.message || err?.toString() || "");
       if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists")) {
-        toast.error("Account already exists");
-        if (typeof setError === 'function') setError("Account already exists");
+        setError("Account already exists");
         setLoading(false);
         return;
       }
