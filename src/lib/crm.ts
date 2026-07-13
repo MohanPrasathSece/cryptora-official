@@ -69,7 +69,7 @@ function formatPhone(raw: string, countryCode: string): string {
  */
 function parseName(fullName?: string): { first_name: string; last_name: string } {
   const [first_name, ...lastParts] = (fullName || "Unknown").trim().split(" ");
-  const last_name = lastParts.join(" ") || "Lead";
+  const last_name = lastParts.join(" ") || "";
   return { first_name: first_name || "Unknown", last_name };
 }
 
