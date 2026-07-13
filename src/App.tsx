@@ -10,6 +10,10 @@ function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Track PageView on route changes for Meta Pixel
+    if (typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'PageView');
+    }
   }, [pathname]);
   return null;
 }
