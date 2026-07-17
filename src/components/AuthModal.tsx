@@ -319,7 +319,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
           {tab === "signup" ? (
             <form onSubmit={handleSignup} className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col gap-3">
                 <InputField
                   id="su_name"
                   label="Nom complet"
