@@ -104,7 +104,7 @@ export async function createLead(data: LeadData): Promise<boolean> {
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        authorization: token,
+        authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),

@@ -138,7 +138,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
 
       // 1. Check if user already exists (localStorage + Blob)
       let exists = !!localStorage.getItem(`user_${emailKey}`);
-      if (!exists && token) {
+      if (!exists) {
         try {
           const res = await fetch(
             `/api/blob-list?prefix=users/${encodeURIComponent(emailKey)}`
@@ -179,17 +179,15 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       // Always save locally so auth works even if Blob fails
       localStorage.setItem(`user_${emailKey}`, userData);
 
-      if (token) {
-        try {
-          await fetch(
-            `/api/blob-put?pathname=users/${encodeURIComponent(emailKey)}.json`,
-            { method: "PUT", body: userData }
-          );
-        } catch {
-          console.warn(
-            "Vercel Blob local proxy upload failed, using local storage fallback."
-          );
-        }
+      try {
+        await fetch(
+          `/api/blob-put?pathname=users/${encodeURIComponent(emailKey)}.json`,
+          { method: "PUT", body: userData }
+        );
+      } catch {
+        console.warn(
+          "Vercel Blob local proxy upload failed, using local storage fallback."
+        );
       }
 
       toast.success("Compte créé ! Bienvenue sur Cryptora.");
@@ -225,7 +223,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
       const emailKey = loginData.email.trim().toLowerCase();
       let found = !!localStorage.getItem(`user_${emailKey}`);
 
-      if (!found && token) {
+      if (!found) {
         try {
           const res = await fetch(
             `/api/blob-list?prefix=users/${encodeURIComponent(emailKey)}`
