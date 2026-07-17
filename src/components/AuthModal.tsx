@@ -328,7 +328,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
                   onChange={onSignupChange}
                 />
                 
-<div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+<div style={{ display: 'flex', gap: '8px', width: '100%', alignItems: 'flex-end' }}>
     <Select value={signupData.countryCode} onValueChange={(val) => setSignupData(p => ({ ...p, countryCode: val }))}>
       <SelectTrigger className="w-[110px] h-11 px-3.5 bg-[color:var(--surface)] border border-[color:var(--border)] text-[color:var(--foreground)] text-[14px] rounded-lg focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)]/30 focus:border-[color:var(--primary)] shadow-none transition-all">
         <SelectValue placeholder="Pays" />
