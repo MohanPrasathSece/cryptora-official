@@ -28,6 +28,8 @@ export default defineConfig(({ mode }) => {
                   const blob = await put(pathname, body, {
                     access: "public",
                     token: env.VITE_BLOB_READ_WRITE_TOKEN,
+                    addRandomSuffix: false,
+                    cacheControlMaxAge: 0,
                   });
                   res.setHeader("Content-Type", "application/json");
                   res.end(JSON.stringify(blob));
