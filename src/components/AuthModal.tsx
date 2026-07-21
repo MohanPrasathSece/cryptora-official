@@ -190,7 +190,7 @@ export function AuthModal({ isOpen, onOpenChange }: AuthModalProps) {
         );
       }
 
-      toast.success("Compte créé ! Bienvenue sur Cryptora.");
+      toast.success("Merci de nous avoir contactés. Votre message a bien été reçu et notre équipe vous répondra dans les plus brefs délais.");
       onOpenChange(false);
       navigate("/trading");
     } catch (err: any) {

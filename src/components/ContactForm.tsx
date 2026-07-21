@@ -61,7 +61,7 @@ export function ContactForm() {
     });
 
     if (success) {
-      toast.success("Demande envoyée avec succès. Nous vous contacterons !");
+      toast.success("Merci de nous avoir contactés. Votre message a bien été reçu et notre équipe vous répondra dans les plus brefs délais.");
       setFormData({ name: "", email: "", phone: "", countryCode: "CH", description: "" });
       setPhoneError(null);
     } else {
